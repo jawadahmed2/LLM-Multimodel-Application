@@ -1,7 +1,7 @@
 # from langchain_openai import ChatOpenAI
 
 from langchain_community.chat_models import ChatOllama
-
+from langchain_openai import ChatOpenAI
 from langchain_core.prompts import ChatPromptTemplate
 from langchain_core.pydantic_v1 import BaseModel, Field
 from config import openai_key
@@ -20,12 +20,14 @@ model_local = ChatOllama(model="mistral")
 # Data model
 class GradeDocuments(BaseModel):
     """Binary score for relevance check on retrieved documents."""
-
-    binary_score: str = Field(description="Documents are relevant to the question, 'yes' or 'no'")
+    binary_score: str = Field(
+        ...,
+        description="Documents are relevant to the question. Should be `yes` or `no`.",
+    )
 
 ## Commented out the OpenAI model and replaced it with Ollama model local settings
 # LLM with function call
-# llm = ChatOpenAI(model="gpt-3.5-turbo-0125", temperature=0, api_key=openai_key)
+# llm = ChatOpenAI(model_name="mistral", temperature=0, api_key='ollama', api_base='http://localhost:11434/v1')
 # structured_llm_grader = llm.with_structured_output(GradeDocuments)
 
 # Prompt

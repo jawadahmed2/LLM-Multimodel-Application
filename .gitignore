@@ -1,0 +1,18 @@
+# Ignore all .env folders recursively
+**/.env/
+
+# Ignore Python bytecode files
+__pycache__/
+*.pyc
+
+# Ignore Jupyter Notebook checkpoints
+.ipynb_checkpoints/
+
+# Ignore virtual environments
+venv/
+env/
+*.env
+
+# Ignore OS files
+.DS_Store
+Thumbs.db

@@ -1,12 +1,9 @@
-from langchain.schema import Document
 from typing_extensions import TypedDict
 from typing import List
 from llms import rag_chain, retrieval_grader, question_rewriter
 from retriever import retriever
 from web_search_tools import web_search_tool
-from typing import Dict
 
-# Change List[str] to Dict[str, str] for documents
 class GraphState(TypedDict):
     """
     Represents the state of our graph.
@@ -15,12 +12,15 @@ class GraphState(TypedDict):
         question: question
         generation: LLM generation
         web_search: whether to add search
-        documents: dictionary of document content
+        documents: list of documents
     """
-    question: str
-    generation: str
-    web_search: str
-    documents: List[str]
+    question : str
+    generation : str
+    web_search : str
+    documents : List[str]
+
+
+from langchain.schema import Document
 
 def retrieve(state):
     """
@@ -37,12 +37,7 @@ def retrieve(state):
 
     # Retrieval
     documents = retriever.get_relevant_documents(question)
-
-    # Convert documents list to a dictionary
-    document_dict = {f"document_{i}": doc.page_content for i, doc in enumerate(documents)}
-
-    return {"documents": document_dict, "question": question}
-
+    return {"documents": documents, "question": question}
 
 def generate(state):
     """
@@ -60,9 +55,7 @@ def generate(state):
 
     # RAG generation
     generation = rag_chain.invoke({"context": documents, "question": question})
-    print('Generation worked \n', generation)
     return {"documents": documents, "question": question, "generation": generation}
-
 
 def grade_documents(state):
     """
@@ -83,26 +76,18 @@ def grade_documents(state):
     filtered_docs = []
     web_search = "No"
     for d in documents:
-        score = retrieval_grader.invoke(
-            {"question": question, "document": d.page_content})
-        grade = score.binary_score
+        score = retrieval_grader.invoke({"question": question, "document": d.page_content})
+        print('score:', score)
+        grade = score
+
         if grade == "yes":
             print("---GRADE: DOCUMENT RELEVANT---")
-            # Append page content instead of Document object
-            filtered_docs.append(d.page_content)
+            filtered_docs.append(d)
         else:
             print("---GRADE: DOCUMENT NOT RELEVANT---")
             web_search = "Yes"
             continue
-
-    # Convert filtered_docs to a list of strings
-    filtered_docs = [str(doc) for doc in filtered_docs]
-    print('Grade Documents worked \n', filtered_docs)
-
     return {"documents": filtered_docs, "question": question, "web_search": web_search}
-
-
-
 
 def transform_query(state):
     """
@@ -121,9 +106,7 @@ def transform_query(state):
 
     # Re-write question
     better_question = question_rewriter.invoke({"question": question})
-    print('Transform Query worked \n', better_question)
     return {"documents": documents, "question": better_question}
-
 
 def web_search(state):
     """
@@ -143,17 +126,12 @@ def web_search(state):
     # Web search
     docs = web_search_tool.invoke({"query": question})
     web_results = "\n".join([d["content"] for d in docs])
-
-    # Assuming web_results is the page content from web search
-    web_results_document = Document(page_content=web_results)
-
-    # Append web search result to documents dictionary
-    documents["web_search_result"] = web_results_document.page_content
+    web_results = Document(page_content=web_results)
+    documents.append(web_results)
 
     return {"documents": documents, "question": question}
 
-# Edges
-
+### Edges
 
 def decide_to_generate(state):
     """

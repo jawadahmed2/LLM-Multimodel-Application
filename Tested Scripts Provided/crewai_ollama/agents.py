@@ -1,3 +1,4 @@
+# agents.py
 from crewai import Process, Crew
 from agent_task import AgentTask, ai_model
 
@@ -45,10 +46,10 @@ agent3 = AgentTask(
 agent4 = AgentTask(
     role="Python Programming Expert",
     goal="Develop code in Python based on the Business Analyst",
-    backstory="""I Python code for each user story to start 
+    backstory="""I Python code for each user story to start
     implementing the image-to-video conversion app.""",
     task_description="Write python code for each user story to implement the image-to-video console app.",
-    expected_output="""complete solution with python code that satisfies each user story and its respective requirements. 
+    expected_output="""complete solution with python code that satisfies each user story and its respective requirements.
     There should be comments in the code to explain the parts dealing with each user story.
     All user stories must be covered.Make sure the code is bug-free and well-formatted.
     """,
