@@ -1,10 +1,19 @@
 from client.llm_connection import LLMConnection
 from data_preparation.data_generation import Data_Generation
+from data_preparation.data_processing import Data_Processing
+from data_preparation.generate_report import Generate_Report
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.agents import AgentExecutor, create_react_agent, Tool
+import gradio as gr
+from langchain.chains import ConversationalRetrievalChain
+from langchain.memory import ConversationBufferMemory
+
+
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
+data_processing = Data_Processing()
+generate_report = Generate_Report()
 
 class Task_Execution:
     def __init__(self):
@@ -28,3 +37,33 @@ class Task_Execution:
 
         return output
 
+
+    def gradio_interface(self):
+        iface = gr.ChatInterface(
+            fn = self.querying,
+            chatbot=gr.Chatbot(height=600),
+            textbox=gr.Textbox(placeholder="Tell me about Stripe System Design Articles?", container=False, scale=7),
+            title="MLSystemDesignBot",
+            theme="soft",
+            examples=["How to design a System for Holiday Prediction like Doordash?",
+                                "Please summarize Expedia Group's Customer Lifetime Value Prediction Model"],
+            cache_examples=True,
+            retry_btn="Retry",
+            undo_btn="Undo",
+            clear_btn="Clear",
+            submit_btn="Submit"
+                )
+
+        return iface
+
+    def querying(self, query, history):
+        db = data_processing.store_docs_in_db("Give me an indepth Recommendation System ML System Design")
+        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+        qa_chain = ConversationalRetrievalChain.from_llm(
+            llm=self.ollama,
+            retriever=db.as_retriever(search_kwargs={"k": 2}),
+            memory=memory,
+            condense_question_prompt=generate_report.interview_bot_template(),
+        )
+        result = qa_chain({"question": query})
+        return result["answer"].strip()

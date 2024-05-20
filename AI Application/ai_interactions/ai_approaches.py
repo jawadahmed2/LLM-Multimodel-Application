@@ -11,3 +11,7 @@ class AI_Approaches:
         search_query = "What is happening with Arvind Kejriwal today?"
         response = task_execution.execute_automate_browsing(search_query)
         return response
+
+    def interview_bot(self):
+        iface = task_execution.gradio_interface()
+        return iface.launch(share=True)

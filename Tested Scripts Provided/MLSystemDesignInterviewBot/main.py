@@ -98,18 +98,18 @@ Standalone question:
 """
 
 CUSTOM_QUESTION_PROMPT = PromptTemplate.from_template(custom_template)
-memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-qa_chain = ConversationalRetrievalChain.from_llm(
-    llm=llm,
-    retriever=db.as_retriever(search_kwargs={"k": 2}),
-    memory=memory,
-    condense_question_prompt=CUSTOM_QUESTION_PROMPT,
-)
-query = "Who you are?"
-result_ = qa_chain({"question": query})
-result = result_["answer"].strip()
-display(Markdown(f"<b>{query}</b>"))
-display(Markdown(f"<p>{result}</p>"))
+# memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
+# qa_chain = ConversationalRetrievalChain.from_llm(
+#     llm=llm,
+#     retriever=db.as_retriever(search_kwargs={"k": 2}),
+#     memory=memory,
+#     condense_question_prompt=CUSTOM_QUESTION_PROMPT,
+# )
+# query = "Who you are?"
+# result_ = qa_chain({"question": query})
+# result = result_["answer"].strip()
+# display(Markdown(f"<b>{query}</b>"))
+# display(Markdown(f"<p>{result}</p>"))
 
 def querying(query, history):
 		memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
@@ -121,6 +121,8 @@ def querying(query, history):
 		)
 		result = qa_chain({"question": query})
 		return result["answer"].strip()
+
+
 iface = gr.ChatInterface(
 	fn = querying,
 	chatbot=gr.Chatbot(height=600),
