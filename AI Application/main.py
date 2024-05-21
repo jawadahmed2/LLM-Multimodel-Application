@@ -9,4 +9,11 @@ select_ai_approach = AI_Approaches()
 
 
 # Launch the interview bot
-iface = select_ai_approach.interview_bot()
+# iface = select_ai_approach.interview_bot()
+
+# Launch the crewai
+response = select_ai_approach.crewai()
+print(f"""
+    Task completed!
+    Task: "Write python code for each user story to implement the image-to-video console app."
+    Output: {response}""")

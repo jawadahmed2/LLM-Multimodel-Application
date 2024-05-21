@@ -15,3 +15,7 @@ class AI_Approaches:
     def interview_bot(self):
         iface = task_execution.gradio_interface()
         return iface.launch(share=True)
+
+    def crewai(self):
+        response = task_execution.execute_crewai()
+        return response

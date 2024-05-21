@@ -1,19 +1,19 @@
 from client.llm_connection import LLMConnection
 from data_preparation.data_generation import Data_Generation
 from data_preparation.data_processing import Data_Processing
-from data_preparation.generate_report import Generate_Report
+from data_preparation.prompt_template import Prompt_Template
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.agents import AgentExecutor, create_react_agent, Tool
 import gradio as gr
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
-
+from crewai import Crew, Process
 
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
 data_processing = Data_Processing()
-generate_report = Generate_Report()
+prompt_template = Prompt_Template()
 
 class Task_Execution:
     def __init__(self):
@@ -63,7 +63,19 @@ class Task_Execution:
             llm=self.ollama,
             retriever=db.as_retriever(search_kwargs={"k": 2}),
             memory=memory,
-            condense_question_prompt=generate_report.interview_bot_template(),
+            condense_question_prompt=prompt_template.interview_bot_template(),
         )
         result = qa_chain({"question": query})
         return result["answer"].strip()
+
+    def execute_crewai(self):
+        agent1, agent2, agent3, agent4 = prompt_template.crewai_template()
+        # Initialize a Crew with Agents, Tasks, and set the process to hierarchical
+        crew = Crew(
+            agents=[agent1.agent, agent2.agent, agent3.agent, agent4.agent],
+            tasks=[agent1.task, agent2.task, agent3.task, agent4.task],
+            llm=self.ollama,
+            process=Process.sequential,
+            verbose=True,
+        )
+        return crew.kickoff()
