@@ -1,4 +1,5 @@
 from .data_generation import Data_Generation
+from infographics.generate_report import Generate_Report
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community import embeddings
 from langchain.vectorstores import Chroma
@@ -13,9 +14,10 @@ import future  # for handling non-numeric frame rate
 import time
 import sys
 from ffmpeg import input, output
-
+from PIL import Image
 
 data_generation = Data_Generation()
+generate_report = Generate_Report()
 
 class Data_Processing:
     def __init__(self):
@@ -91,3 +93,11 @@ class Data_Processing:
 
         out.run()  # Write the final video output file
         print("\nVideo processing completed!")
+
+    def image_processing(self, inputs: dict) -> dict:
+        "Load image from file and encode it as base64."
+        image_path = inputs["image_path"]
+        pil_image = Image.open(image_path)
+        image_base64 = data_generation.generate_base64_image(pil_image)
+        generate_report.plt_img_base64(image_base64)
+        return {"image": image_base64}

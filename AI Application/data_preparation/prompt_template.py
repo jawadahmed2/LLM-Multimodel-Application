@@ -76,3 +76,13 @@ class Prompt_Template:
         )
 
         return agent1, agent2, agent3, agent4
+
+    def get_image_info_prompt(self):
+        vision_prompt = """
+                        Given the image, provide the following information:
+                        - A count of how many people are in the image
+                        - A list of the main objects present in the image
+                        - A description of the image
+                        """
+
+        return vision_prompt

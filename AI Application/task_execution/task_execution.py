@@ -8,7 +8,8 @@ import gradio as gr
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 from crewai import Crew, Process
-
+from langchain.chains import TransformChain
+from langchain_core.runnables import chain
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
@@ -79,3 +80,30 @@ class Task_Execution:
             verbose=True,
         )
         return crew.kickoff()
+        
+    @staticmethod
+    @chain
+    def image_model(inputs: dict) -> str | list[str] | dict:
+        """Invoke model with image and prompt."""
+        image = data_processing.image_processing(inputs)["image"]
+        multi_model = llm_connection.connect_mulimodel_ollama()
+        multi_model.bind(images=image)
+        msg = multi_model.invoke(
+            [
+                {"role": "system", "content": "you are a usefull assistant that provides information about images"},
+                {"role": "user", "content": inputs["prompt"]},
+            ]
+        )
+        return msg
+
+    def get_image_informations(self, image_path: str) -> dict:
+        load_image_chain = TransformChain(
+        input_variables=['image_path'],
+        output_variables=['image'],
+        transform=data_processing.image_processing
+        )
+        image_model = self.image_model
+        vision_chain = load_image_chain | image_model
+        output = vision_chain.invoke({'image_path': f'{image_path}', 'prompt': prompt_template.get_image_info_prompt()})
+        print('Input Prompt:', prompt_template.get_image_info_prompt())
+        return output

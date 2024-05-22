@@ -13,8 +13,13 @@ class LLMConnection:
     def connect_ollama():
         ai_model = Ollama(model=AIConfig.model_name())
         return ai_model
-        
+
     @staticmethod
     def connect_chat_ollama():
         ai_model = ChatOllama(model=AIConfig.model_name())
+        return ai_model
+
+    @staticmethod
+    def connect_mulimodel_ollama():
+        ai_model = Ollama(model=AIConfig.multi_model_name())
         return ai_model

@@ -1,6 +1,9 @@
 from langchain import hub
 from client.llm_connection import LLMConnection
 import cv2
+import base64
+from io import BytesIO
+
 
 llm_connection = LLMConnection()
 
@@ -62,3 +65,10 @@ class Data_Generation:
             with open(file_path, "w") as file:
                 file.write(script_content)
             return script_content
+
+
+    def generate_base64_image(self, pil_image):
+        buffered = BytesIO()
+        pil_image.save(buffered, format="JPEG")  # You can change the format if needed
+        img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
+        return img_str

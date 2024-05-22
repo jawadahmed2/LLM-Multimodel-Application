@@ -14,3 +14,8 @@ class AIConfig:
     def model_name():
         model_name = 'mistral'
         return model_name
+
+    @staticmethod
+    def multi_model_name():
+        model_name = 'bakllava'
+        return model_name

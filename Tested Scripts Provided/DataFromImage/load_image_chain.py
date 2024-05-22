@@ -7,3 +7,4 @@ load_image_chain = TransformChain(
   output_variables=['image'],
   transform=load_image
 )
+load_image

@@ -4,3 +4,4 @@ ollama==0.1.9
 gradio==4.31.0
 future==1.0.0
 ffmpeg-python==0.2.0
+pillow==10.3.0

@@ -19,3 +19,8 @@ class AI_Approaches:
     def crewai(self):
         response = task_execution.execute_crewai()
         return response
+
+    def get_image_information(self):
+        image_path = "data_preparation/data/images/image.jpg"
+        response = task_execution.get_image_informations(image_path)
+        return response
