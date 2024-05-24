@@ -2,7 +2,7 @@ from .data_generation import Data_Generation
 from infographics.generate_report import Generate_Report
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community import embeddings
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings import OllamaEmbeddings
 import os
 import cv2
@@ -15,6 +15,10 @@ import time
 import sys
 from ffmpeg import input, output
 from PIL import Image
+import random
+from datetime import timedelta
+import timeit
+
 
 data_generation = Data_Generation()
 generate_report = Generate_Report()
@@ -101,3 +105,56 @@ class Data_Processing:
         image_base64 = data_generation.generate_base64_image(pil_image)
         generate_report.plt_img_base64(image_base64)
         return {"image": image_base64}
+
+
+
+    def process_instructions(self,db, chain, query) -> None:
+        # access vector for k-doc chunks
+        vs = db.__dict__.get("docstore")
+        docstore_id_list = list(db.__dict__.get("index_to_docstore_id").values())
+        rand_doc_id_list = random.choices(docstore_id_list, k=100)
+
+        qfile = open("data_preparation/data/llm_tuning/instructions.txt", "w")
+        start_gen = timeit.default_timer()
+        for i, doc_id in enumerate(rand_doc_id_list):
+            start = timeit.default_timer()
+            a_doc = vs.search(doc_id)
+            # print(f'CHOSEN DOC => {a_doc.page_content}\n_________________\n')
+            result = chain.invoke({"question": query, "context": a_doc.page_content})
+            resp_time = timeit.default_timer() - start  # seconds
+            print(f'{"-"*50}\nQ #{i}: {result}\nTime: {resp_time}\n{"-"*50}\n')
+            qfile.write(result[3:])
+        qfile.close()
+        gen_time = timeit.default_timer() - start_gen  # seconds
+        print(f"Total generation time => {timedelta(seconds=gen_time)}")
+
+    def process_training(self, db, bm25_r, chain,) -> None:
+
+        with open("data_preparation/data/llm_tuning/instructions.txt") as tfile:
+            instructions = tfile.readlines()
+        start_t_gen = timeit.default_timer()
+        train_lines = list()
+        for i, instruction in enumerate(instructions, start=1):
+            print(f"Handling ({i}/{len(instructions)}):")
+            start = timeit.default_timer()
+            try:
+                answer = chain.invoke(instruction)
+            except Exception as e:
+                print(f"FAILED for => {e}")
+                continue
+            resp_time = timeit.default_timer() - start  # seconds
+            print(
+                f'{"-"*50}\nQ #{i}: {instruction}\nA:{answer}\nTime: {resp_time}\n{"-"*50}\n'
+            )
+            result = (
+                json.dumps({"text": f"<s>[INST] {instruction}[/INST] {answer}</s>"}) + "\n"
+            )
+            with open("data_preparation/data/llm_tuning/train_valid.jsonl", "a") as file:
+                file.write(result)
+            train_lines.append(result)
+        gen_time = timeit.default_timer() - start_t_gen  # seconds
+        with open("data_preparation/data/llm_tuning/valid.jsonl", "w") as file:
+            file.writelines(train_lines[: int(len(train_lines) * 0.2)])
+        with open("data_preparation/data/llm_tuning/train.jsonl", "w") as file:
+            file.writelines(train_lines[int(len(train_lines) * 0.2) :])
+        print(f"Total training generation time => {timedelta(seconds=gen_time)}")

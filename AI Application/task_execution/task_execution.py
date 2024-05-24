@@ -10,6 +10,9 @@ from langchain.memory import ConversationBufferMemory
 from crewai import Crew, Process
 from langchain.chains import TransformChain
 from langchain_core.runnables import chain
+from langchain_core.runnables import RunnableParallel, RunnablePassthrough
+from langchain_core.output_parsers import StrOutputParser
+
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
@@ -80,7 +83,7 @@ class Task_Execution:
             verbose=True,
         )
         return crew.kickoff()
-        
+
     @staticmethod
     @chain
     def image_model(inputs: dict) -> str | list[str] | dict:
@@ -107,3 +110,50 @@ class Task_Execution:
         output = vision_chain.invoke({'image_path': f'{image_path}', 'prompt': prompt_template.get_image_info_prompt()})
         print('Input Prompt:', prompt_template.get_image_info_prompt())
         return output
+
+
+    def format_docs(self, docs):
+        return "\n\n".join([d.page_content for d in docs])
+
+
+
+    def generate_instructions_training_data(self, is_gen_instruct=False, is_gen_training=False):
+        QA_PROMPT = prompt_template.llm_tunning_template()
+        db, bm25_r = data_generation.load_db()
+
+        output_parser = StrOutputParser()
+
+
+        if is_gen_instruct:
+            query = """
+                Please generate two questions about SteelHead based on the provided context. The question should be around SteelHead WAN acceleration and its related concepts only. The questions should start with any of the following: "What", "How', "Is there a", "What are the", "How do I", "When is it", "Does SteelHead have", "How to", "What is the difference", "Which", "List". You do not need to provide an answer or category to each question.
+                """
+
+            # Custom QA Chain
+            chain = (
+            {"context": RunnablePassthrough(), "question": RunnablePassthrough()}
+            | QA_PROMPT
+            | self.ollama
+            | output_parser
+        )
+            data_processing.process_instructions(db, chain, query)
+
+        if is_gen_training:
+
+            faiss_retriever = db.as_retriever(
+                search_type="mmr", search_kwargs={"fetch_k": 3}, max_tokens_limit=1000
+            )
+            ensemble_retriever = EnsembleRetriever(
+                retrievers=[bm25_r, faiss_retriever], weights=[0.3, 0.7]
+            )
+
+
+            # Custom QA Chain
+            chain = (
+                {"context": ensemble_retriever | self.format_docs, "question": RunnablePassthrough()}
+                | QA_PROMPT
+                | self.ollama
+                | output_parser
+            )
+
+            data_processing.process_training(db, bm25_r, chain)

@@ -24,3 +24,7 @@ class AI_Approaches:
         image_path = "data_preparation/data/images/image.jpg"
         response = task_execution.get_image_informations(image_path)
         return response
+
+    def get_instructions_training_data(self):
+        response = task_execution.generate_instructions_training_data(is_gen_instruct=True)
+        return response

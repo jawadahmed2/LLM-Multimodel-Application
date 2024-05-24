@@ -20,5 +20,9 @@ select_ai_approach = AI_Approaches()
 
 
 # Get image information
-response = select_ai_approach.get_image_information()
+# response = select_ai_approach.get_image_information()
+# print(response)
+
+# Generate instructions training data
+response = select_ai_approach.get_instructions_training_data()
 print(response)

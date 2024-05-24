@@ -1,0 +1,4 @@
+ What role does the user-assigned IPv6 gateway play in SteelHead WAN acceleration and how is it configured?
+2. How does transport streamlining differ from packet-by-packet data reduction in SteelHead's TCP-over-IPv6 traffic interception and acceleration process? What are the reports available in the Management Console for validating Path Selection design and configuration in SteelHead?
+2. How is the path selection statistics displayed in SteelHead using the CFE show command and the Management Console? What is the recommended setting for configuring QoS marking only in SteelHead, regarding where to define the DSCP or IP TOS value?
+2. How does the precedence of DSCP or IP TOS values work between a QoS rule and a QoS class within a SteelHead QoS profile?

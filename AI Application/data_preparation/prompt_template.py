@@ -1,5 +1,5 @@
 from IPython.display import display, Markdown
-from langchain import PromptTemplate
+from langchain_core.prompts import PromptTemplate
 from task_execution.crewai_agent import AgentTask
 
 class Prompt_Template:
@@ -86,3 +86,18 @@ class Prompt_Template:
                         """
 
         return vision_prompt
+
+    def llm_tunning_template(self):
+        from langchain.prompts import PromptTemplate
+        # Prompt template
+        qa_template = """<s>[INST] You are a helpful assistant.
+        Use the following context to answer the question below accurately and concisely:
+        {context}
+        [/INST] </s>{question}
+        """
+
+        # Create a prompt instance
+        QA_PROMPT = PromptTemplate.from_template(qa_template)
+
+        return QA_PROMPT
+

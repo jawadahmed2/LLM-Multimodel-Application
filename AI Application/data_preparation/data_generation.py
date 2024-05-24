@@ -3,7 +3,11 @@ from client.llm_connection import LLMConnection
 import cv2
 import base64
 from io import BytesIO
-
+from langchain_community.embeddings import HuggingFaceEmbeddings
+from langchain_community.document_loaders import OnlinePDFLoader
+from langchain.text_splitter import RecursiveCharacterTextSplitter
+from langchain_community.vectorstores import FAISS
+from langchain_community.retrievers import BM25Retriever
 
 llm_connection = LLMConnection()
 
@@ -72,3 +76,33 @@ class Data_Generation:
         pil_image.save(buffered, format="JPEG")  # You can change the format if needed
         img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
         return img_str
+
+
+    # load an online pdf and split it
+    def load_doc(self) -> 'List[Document]':
+        loader = OnlinePDFLoader("https://support.riverbed.com/bin/support/download?did=7q6behe7hotvnpqd9a03h1dji&version=9.15.0")
+        documents = loader.load()
+        text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
+        docs = text_splitter.split_documents(documents)
+        return docs
+
+    # vectorize, commit to disk and create a BM25 retriever
+    def vectorize(self, embeddings) -> tuple[FAISS,BM25Retriever]:
+        docs = self.load_doc()
+        db = FAISS.from_documents(docs, embeddings)
+        db.save_local("./opdf_index")
+        bm25_retriever = BM25Retriever.from_documents(docs)
+        bm25_retriever.k=5
+        return db,bm25_retriever
+
+    # attempts to load vectorstore from disk
+    def load_db(self) -> tuple[FAISS,BM25Retriever]:
+        embeddings_model = HuggingFaceEmbeddings()
+        try:
+            db = FAISS.load_local("./opdf_index", embeddings_model)
+            bm25_retriever = BM25Retriever.from_documents(load_doc())
+            bm25_retriever.k=5
+        except Exception as e:
+            print(f'Exception: {e}\nno index on disk, creating new...')
+            db,bm25_retriever = self.vectorize(embeddings_model)
+        return db,bm25_retriever
