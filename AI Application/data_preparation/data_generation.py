@@ -8,6 +8,11 @@ from langchain_community.document_loaders import OnlinePDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.retrievers import BM25Retriever
+from langchain_community.document_loaders import TextLoader
+from pathlib import Path
+import pandas as pd
+import random
+import uuid
 
 llm_connection = LLMConnection()
 
@@ -106,3 +111,39 @@ class Data_Generation:
             print(f'Exception: {e}\nno index on disk, creating new...')
             db,bm25_retriever = self.vectorize(embeddings_model)
         return db,bm25_retriever
+
+    def generate_docs_pages(self, input_file_name):
+        ## Input data directory
+        data_dir = "data_preparation/data/KGraph_data/"+input_file_name
+        inputdirectory = Path(f"./{data_dir}")
+
+        loader = TextLoader(inputdirectory)
+        Document = loader.load()
+        # clean unnecessary line breaks
+        Document[0].page_content = Document[0].page_content.replace("\n", " ")
+
+        splitter = RecursiveCharacterTextSplitter(
+            chunk_size=1000,
+            chunk_overlap=100,
+            length_function=len,
+            is_separator_regex=False,
+        )
+
+        pages = splitter.split_documents(Document)
+        print("Number of chunks = ", len(pages))
+        print(pages[5].page_content)
+
+        return pages
+
+    def generate_docs2Dataframe(self,documents) -> pd.DataFrame:
+        rows = []
+        for chunk in documents:
+            row = {
+                "text": chunk.page_content,
+                **chunk.metadata,
+                "chunk_id": uuid.uuid4().hex,
+            }
+            rows = rows + [row]
+
+        df = pd.DataFrame(rows)
+        return df

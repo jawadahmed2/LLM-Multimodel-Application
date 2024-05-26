@@ -2,6 +2,7 @@ from client.llm_connection import LLMConnection
 from data_preparation.data_generation import Data_Generation
 from data_preparation.data_processing import Data_Processing
 from data_preparation.prompt_template import Prompt_Template
+from .graph_network import create_graph, colors2Community, display_graph
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.agents import AgentExecutor, create_react_agent, Tool
 import gradio as gr
@@ -12,7 +13,9 @@ from langchain.chains import TransformChain
 from langchain_core.runnables import chain
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
-
+from pathlib import Path
+import pandas as pd
+import numpy as np
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
@@ -23,6 +26,7 @@ class Task_Execution:
     def __init__(self):
         self.ollama = llm_connection.connect_ollama()
         self.chat_ollama = llm_connection.connect_chat_ollama()
+        self.ollam_client = llm_connection.ollama_client()
 
     def execute_automate_browsing(self, search_query):
         # Pull the ReAct prompting approach prompt to be used as base
@@ -157,3 +161,124 @@ class Task_Execution:
             )
 
             data_processing.process_training(db, bm25_r, chain)
+
+
+    def execute_graph_prompt(self, input: str, model: str, metadata={}):
+
+        chunk_id = metadata.get('chunk_id', None)
+
+        USER_PROMPT,SYS_PROMPT = prompt_template.graphPrompt(input, chunk_id)
+
+        response = self.ollam_client.generate(model, system=SYS_PROMPT, prompt=USER_PROMPT)
+
+        aux1 = response['response']
+        # Find the index of the first open bracket '['
+        start_index = aux1.find('[')
+        # Slice the string from start_index to extract the JSON part and fix an unexpected problem with insertes escapes (WHY ?)
+        json_string = aux1[start_index:]
+        json_string = json_string.replace("\\\\\_", "_")
+        json_string = json_string.replace('\\\\_', '_')
+        json_string = json_string.replace('\\\_', '_')
+        json_string = json_string.replace('\\_', '_')
+        json_string = json_string.replace('\_', '_')
+        json_string.lstrip() # eliminate eventual leading blank spaces
+        #####################################################
+        print("json-string:\n" + json_string)
+        #####################################################
+        try:
+            result = json.loads(json_string)
+            result = [dict(item) for item in result]
+        except:
+            print("\n\nERROR ### Here is the buggy response: ", response, "\n\n")
+            result = None
+        print("§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§")
+
+        return result
+
+
+    def execute_knowledge_graph(self, regenerate_data):
+        ## This is where the output csv files will be written
+        input_file_name = "Saxony_Eastern_Expansion_EP_96.txt"
+
+        outputdirectory = Path(f"data_preparation/data/KGraph_data/data_output")
+
+        output_graph_file_name = f"graph_{input_file_name[:-4]}.csv"
+        output_graph_file_with_path = outputdirectory/output_graph_file_name
+
+        output_chunks_file_name = f"chunks_{input_file_name[:-4]}.csv"
+        output_chunks_file_with_path = outputdirectory/output_chunks_file_name
+
+        output_context_prox_file_name = f"graph_contex_prox_{input_file_name[:-4]}.csv"
+        output_context_prox_file_with_path = outputdirectory/output_context_prox_file_name
+
+        pages = data_generation.generate_docs_pages(input_file_name)
+
+        df = data_generation.generate_docs2Dataframe(pages)
+
+        print(df.shape)
+        df.head()
+
+        ##################
+        #  # toggle to True if the time-consuming (re-)generation of the knowlege extraction is required
+        ##################
+        if regenerate_data:
+        #########################################################
+            model='mixtral:latest'
+            results = df.apply(
+                lambda row: self.execute_graph_prompt(row.text, model, {"chunk_id": row.chunk_id}), axis=1
+            )
+            concepts_list = data_processing.process_df2Graph(df, results)
+
+        #########################################################
+            dfg1 = data_processing.process_graph2Df(concepts_list)
+
+            if not os.path.exists(outputdirectory):
+                os.makedirs(outputdirectory)
+
+            dfg1.to_csv(output_graph_file_with_path, sep=";", index=False)
+            df.to_csv(output_chunks_file_with_path, sep=";", index=False)
+        else:
+            dfg1 = pd.read_csv(output_graph_file_with_path, sep=";")
+
+        dfg1.replace("", np.nan, inplace=True)
+        dfg1.dropna(subset=["node_1", "node_2", 'edge'], inplace=True)
+        dfg1['count'] = 4
+        ## Increasing the weight of the relation to 4.
+        ## We will assign the weight of 1 when later the contextual proximity will be calculated.
+        print(dfg1.shape)
+        dfg1.head()
+
+        # ## Calculating contextual proximity
+
+        dfg2 = data_processing.proces_contextual_proximity(dfg1)
+        dfg2.to_csv(output_context_prox_file_with_path, sep=";", index=False)
+        dfg2.tail()
+
+        # ### Merge both the dataframes
+
+        dfg = pd.concat([dfg1, dfg2], axis=0)
+        dfg = (
+            dfg.groupby(["node_1", "node_2"])
+            .agg({"chunk_id": ",".join, "edge": ','.join, 'count': 'sum'})
+            .reset_index()
+        )
+        dfg.head()
+
+        # ## Calculate the NetworkX Graph
+
+        nodes = pd.concat([dfg['node_1'], dfg['node_2']], axis=0).unique()
+        nodes.shape
+
+        G, communities = create_graph(nodes, dfg)
+        colors = colors2Community(communities)
+
+        # ### Add colors to the graph
+
+        for index, row in colors.iterrows():
+            G.nodes[row['node']]['group'] = row['group']
+            G.nodes[row['node']]['color'] = row['color']
+            G.nodes[row['node']]['size'] = G.degree[row['node']]
+
+        display_graph(G)
+
+        return 'Successfully generated required Knownledge Graph.'

@@ -28,3 +28,7 @@ class AI_Approaches:
     def get_instructions_training_data(self):
         response = task_execution.generate_instructions_training_data(is_gen_instruct=True)
         return response
+
+    def generate_knowledge_graph(self):
+        response = task_execution.execute_knowledge_graph(regenerate_data=False)
+        return response

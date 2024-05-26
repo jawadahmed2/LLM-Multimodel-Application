@@ -2,6 +2,7 @@ from IPython.display import display, Markdown
 from langchain_core.prompts import PromptTemplate
 from task_execution.crewai_agent import AgentTask
 
+
 class Prompt_Template:
     def __init__(self):
         pass
@@ -89,6 +90,7 @@ class Prompt_Template:
 
     def llm_tunning_template(self):
         from langchain.prompts import PromptTemplate
+
         # Prompt template
         qa_template = """<s>[INST] You are a helpful assistant.
         Use the following context to answer the question below accurately and concisely:
@@ -101,3 +103,36 @@ class Prompt_Template:
 
         return QA_PROMPT
 
+    def graphPrompt(self, input: str, chunk_id):
+
+        # model_info = client.show(model_name=model)
+        # print( chalk.blue(model_info))
+
+        SYS_PROMPT = (
+            "You are a network graph maker who extracts terms and their relations from a given context. "
+            "You are provided with a context chunk (delimited by ```) Your task is to extract the ontology "
+            "of terms mentioned in the given context. These terms should represent the key concepts as per the context. \n"
+            "Thought 1: While traversing through each sentence, Think about the key terms mentioned in it.\n"
+            "\tTerms may include person (agent), location, organization, date, duration, \n"
+            "\tcondition, concept, object, entity  etc.\n"
+            "\tTerms should be as atomistic as possible\n\n"
+            "Thought 2: Think about how these terms can have one on one relation with other terms.\n"
+            "\tTerms that are mentioned in the same sentence or the same paragraph are typically related to each other.\n"
+            "\tTerms can be related to many other terms\n\n"
+            "Thought 3: Find out the relation between each such related pair of terms. \n\n"
+            "Format your output as a list of json. Each element of the list contains a pair of terms"
+            "and the relation between them like the follwing. NEVER change the value of the chunk_ID as defined in this prompt: \n"
+            "[\n"
+            "   {\n"
+            '       "chunk_id": "CHUNK_ID_GOES_HERE",\n'
+            '       "node_1": "A concept from extracted ontology",\n'
+            '       "node_2": "A related concept from extracted ontology",\n'
+            '       "edge": "relationship between the two concepts, node_1 and node_2 in one or two sentences"\n'
+            "   }, {...}\n"
+            "]"
+        )
+        SYS_PROMPT = SYS_PROMPT.replace("CHUNK_ID_GOES_HERE", chunk_id)
+
+        USER_PROMPT = f"context: ```{input}``` \n\n output: "
+
+        return USER_PROMPT, SYS_PROMPT

@@ -24,5 +24,9 @@ select_ai_approach = AI_Approaches()
 # print(response)
 
 # Generate instructions training data
-response = select_ai_approach.get_instructions_training_data()
+# response = select_ai_approach.get_instructions_training_data()
+# print(response)
+
+# Generate knowledge graph
+response = select_ai_approach.generate_knowledge_graph()
 print(response)

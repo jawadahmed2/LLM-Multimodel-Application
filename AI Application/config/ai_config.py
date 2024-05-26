@@ -19,3 +19,8 @@ class AIConfig:
     def multi_model_name():
         model_name = 'bakllava'
         return model_name
+
+    @staticmethod
+    def ollama_host():
+        host = 'http://localhost:11434'
+        return host
