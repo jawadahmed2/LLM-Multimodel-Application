@@ -9,12 +9,17 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import FAISS
 from langchain_community.retrievers import BM25Retriever
 from langchain_community.document_loaders import TextLoader
+from langchain_community.document_loaders import WebBaseLoader
+from langchain_community.vectorstores import Chroma
+from langchain_community.embeddings.ollama import OllamaEmbeddings
 from pathlib import Path
 import pandas as pd
 import random
 import uuid
+from config.ai_config import AIConfig
 
 llm_connection = LLMConnection()
+ai_config = AIConfig()
 
 class Data_Generation:
     def __init__(self):
@@ -147,3 +152,33 @@ class Data_Generation:
 
         df = pd.DataFrame(rows)
         return df
+
+    def retrieve(self, state):
+        print("---RETRIEVE---")
+        url  = 'https://lilianweng.github.io/posts/2023-06-23-agent/'
+        loader = WebBaseLoader(url)
+        docs = loader.load()
+
+        # Split
+        text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
+            chunk_size=500, chunk_overlap=100
+        )
+        all_splits = text_splitter.split_documents(docs)
+
+        vectorstore = Chroma.from_documents(
+            documents=all_splits,
+            collection_name="rag-chroma",
+            embedding=OllamaEmbeddings(model=ai_config.embeddings_model()),
+        )
+
+        retriever = vectorstore.as_retriever()
+
+        state_dict = state["keys"]
+        question = state_dict["question"]
+        documents = retriever.get_relevant_documents(question)
+        return {
+            "keys": {
+                "documents": documents,
+                "question": question
+            }
+        }

@@ -28,5 +28,8 @@ select_ai_approach = AI_Approaches()
 # print(response)
 
 # Generate knowledge graph
-response = select_ai_approach.generate_knowledge_graph()
-print(response)
+# response = select_ai_approach.generate_knowledge_graph()
+# print(response)
+
+# Execute the powerful RAG chatbot
+response = select_ai_approach.powerful_rag_chatbot()

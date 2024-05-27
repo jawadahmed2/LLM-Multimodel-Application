@@ -2,6 +2,7 @@ from client.llm_connection import LLMConnection
 from data_preparation.data_generation import Data_Generation
 from data_preparation.data_processing import Data_Processing
 from data_preparation.prompt_template import Prompt_Template
+from .rag_chats import GraphState, RagProcess
 from .graph_network import create_graph, colors2Community, display_graph
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.agents import AgentExecutor, create_react_agent, Tool
@@ -13,6 +14,8 @@ from langchain.chains import TransformChain
 from langchain_core.runnables import chain
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
+from langgraph.graph import END, StateGraph
+import pprint
 from pathlib import Path
 import pandas as pd
 import numpy as np
@@ -21,12 +24,14 @@ llm_connection = LLMConnection()
 data_generation = Data_Generation()
 data_processing = Data_Processing()
 prompt_template = Prompt_Template()
+rag_process = RagProcess()
+
 
 class Task_Execution:
     def __init__(self):
         self.ollama = llm_connection.connect_ollama()
         self.chat_ollama = llm_connection.connect_chat_ollama()
-        self.ollam_client = llm_connection.ollama_client()
+        self.ollam_client, self.client_model = llm_connection.ollama_client()
 
     def execute_automate_browsing(self, search_query):
         # Pull the ReAct prompting approach prompt to be used as base
@@ -223,9 +228,9 @@ class Task_Execution:
         ##################
         if regenerate_data:
         #########################################################
-            model='mixtral:latest'
+
             results = df.apply(
-                lambda row: self.execute_graph_prompt(row.text, model, {"chunk_id": row.chunk_id}), axis=1
+                lambda row: self.execute_graph_prompt(row.text, self.client_model, {"chunk_id": row.chunk_id}), axis=1
             )
             concepts_list = data_processing.process_df2Graph(df, results)
 
@@ -282,3 +287,47 @@ class Task_Execution:
         display_graph(G)
 
         return 'Successfully generated required Knownledge Graph.'
+
+
+    def execute_Rag_Chatbot(self, query):
+        workflow = StateGraph(GraphState)
+
+        # Define the nodes
+        workflow.add_node("retrieve", data_generation.retrieve)  # retrieve
+        workflow.add_node("grade_documents", rag_process.grade_documents)  # grade documents
+        workflow.add_node("generate", rag_process.generate)  # generatae
+        workflow.add_node("transform_query", rag_process.transform_query)  # transform_query
+        workflow.add_node("web_search", rag_process.web_search)  # web search
+
+        # Build graph
+        workflow.set_entry_point("retrieve")
+        workflow.add_edge("retrieve", "grade_documents")
+        workflow.add_conditional_edges(
+            "grade_documents",
+            rag_process.decide_to_generate,
+            {
+                "transform_query": "transform_query",
+                "generate": "generate",
+            },
+        )
+        workflow.add_edge("transform_query", "web_search")
+        workflow.add_edge("web_search", "generate")
+        workflow.add_edge("generate", END)
+
+        # Compile
+        app = workflow.compile()
+
+
+        inputs = {
+            "keys": {
+                "question": query,
+            }
+        }
+        for output in app.stream(inputs):
+            for key, value in output.items():
+                # Node
+                print(f"Node '{key}':")
+            pprint.pprint("\n---\n")
+
+        # Final generation
+        pprint.pprint(value['keys']['generation'])

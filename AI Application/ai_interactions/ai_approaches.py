@@ -30,5 +30,10 @@ class AI_Approaches:
         return response
 
     def generate_knowledge_graph(self):
-        response = task_execution.execute_knowledge_graph(regenerate_data=False)
+        response = task_execution.execute_knowledge_graph(regenerate_data=True)
+        return response
+
+    def powerful_rag_chatbot(self):
+        query = 'Explain how the different types of agent memory work?'
+        response = task_execution.execute_Rag_Chatbot(query)
         return response

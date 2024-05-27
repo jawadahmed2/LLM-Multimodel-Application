@@ -23,4 +23,10 @@ class AIConfig:
     @staticmethod
     def ollama_host():
         host = 'http://localhost:11434'
-        return host
+        model = 'mistral:latest'
+        return host, model
+
+    @staticmethod
+    def embeddings_model():
+        model = 'nomic-embed-text'
+        return model

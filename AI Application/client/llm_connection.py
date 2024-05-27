@@ -16,7 +16,7 @@ class LLMConnection:
 
     @staticmethod
     def connect_chat_ollama():
-        ai_model = ChatOllama(model=AIConfig.model_name())
+        ai_model = ChatOllama(model=AIConfig.model_name(), temperature=0)
         return ai_model
 
     @staticmethod
@@ -26,5 +26,6 @@ class LLMConnection:
 
     @staticmethod
     def ollama_client():
-        client = Client(host=AIConfig.ollama_host())
-        return client
+        host, model = AIConfig.ollama_host()
+        client = Client(host=host)
+        return client, model
