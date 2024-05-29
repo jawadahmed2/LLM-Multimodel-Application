@@ -5,16 +5,27 @@ import pandas as pd
 import random
 
 def create_graph(nodes, dfg):
-    ## Create a graph
+    """
+    Create a graph based on nodes and edges.
+
+    Args:
+    - nodes (list): List of nodes for the graph.
+    - dfg (pd.DataFrame): DataFrame containing edges information.
+
+    Returns:
+    - G (nx.Graph): Generated graph.
+    - communities (list): List of communities in the graph.
+    """
+    # Create a graph
     G = nx.Graph()
 
-    ## Add nodes to the graph
+    # Add nodes to the graph
     for node in nodes:
         G.add_node(
             str(node)
         )
 
-    ## Add edges to the graph
+    # Add edges to the graph
     for index, row in dfg.iterrows():
         G.add_edge(
             str(row["node_1"]),
@@ -23,9 +34,7 @@ def create_graph(nodes, dfg):
             weight=row['count']/4
         )
 
-
-    # ### Calculate communities for coloring the nodes
-
+    # Calculate communities for coloring the nodes
     communities_generator = nx.community.girvan_newman(G)
     top_level_communities = next(communities_generator)
     next_level_communities = next(communities_generator)
@@ -36,11 +45,18 @@ def create_graph(nodes, dfg):
     return G, communities
 
 
-# ### Create a dataframe for community colors
-## Now add these colors to communities and make another dataframe
 def colors2Community(communities) -> pd.DataFrame:
+    """
+    Convert communities into colors for visualization.
+
+    Args:
+    - communities (list): List of communities.
+
+    Returns:
+    - df_colors (pd.DataFrame): DataFrame containing node colors and groups.
+    """
     palette = "hls"
-    ## Define a color palette
+    # Define a color palette
     p = sns.color_palette(palette, len(communities)).as_hex()
     random.shuffle(p)
     rows = []
@@ -55,23 +71,23 @@ def colors2Community(communities) -> pd.DataFrame:
 
 
 def display_graph(G):
+    """
+    Display the graph using Pyvis.
 
+    Args:
+    - G (nx.Graph): Graph to be displayed.
+    """
     net = Network(
         notebook=True,
-        # bgcolor="#1a1a1a",
         cdn_resources="remote",
         height="800px",
         width="100%",
         select_menu=True,
-        # font_color="#cccccc",
         filter_menu=False,
     )
 
     net.from_nx(G)
-    # net.repulsion(node_distance=150, spring_length=400)
     net.force_atlas_2based(central_gravity=0.015, gravity=-31)
-    # net.barnes_hut(gravity=-18100, central_gravity=5.05, spring_length=380)
 
     net.show_buttons(filter_=['physics'])
     net.show("data_preparation/data/KGraph_data/knowledge_graph.html")
-

@@ -41,6 +41,15 @@ class RagProcess:
         return prompt | self.chat_ollama | StrOutputParser()
 
     def generate(self, state: GraphState) -> GraphState:
+        """
+        Generate new content based on the state.
+
+        Args:
+        - state (GraphState): Current state containing question and documents.
+
+        Returns:
+        - GraphState: Updated state with generated content.
+        """
         print("---GENERATE---")
         state_dict = state["keys"]
         question = state_dict["question"]
@@ -56,6 +65,15 @@ class RagProcess:
         }
 
     def grade_documents(self, state: GraphState) -> GraphState:
+        """
+        Grade the relevance of documents based on a question.
+
+        Args:
+        - state (GraphState): Current state containing question and documents.
+
+        Returns:
+        - GraphState: Updated state with filtered documents.
+        """
         print("---CHECK RELEVANCE---")
         state_dict = state["keys"]
         question = state_dict["question"]
@@ -81,6 +99,15 @@ class RagProcess:
         }
 
     def transform_query(self, state: GraphState) -> GraphState:
+        """
+        Transform the query to improve it.
+
+        Args:
+        - state (GraphState): Current state containing question and documents.
+
+        Returns:
+        - GraphState: Updated state with transformed question.
+        """
         print("---TRANSFORM QUERY---")
         state_dict = state["keys"]
         question = state_dict["question"]
@@ -96,6 +123,15 @@ class RagProcess:
         }
 
     def web_search(self, state: GraphState) -> GraphState:
+        """
+        Perform a web search based on the question.
+
+        Args:
+        - state (GraphState): Current state containing question and documents.
+
+        Returns:
+        - GraphState: Updated state with web search results added.
+        """
         print("---WEB SEARCH---")
         state_dict = state["keys"]
         question = state_dict["question"]
@@ -112,6 +148,15 @@ class RagProcess:
         return {"documents": documents, "question": question}
 
     def decide_to_generate(self, state: GraphState) -> str:
+        """
+        Decide whether to generate content or not based on the state.
+
+        Args:
+        - state (GraphState): Current state containing question and documents.
+
+        Returns:
+        - str: Action to take next based on the decision.
+        """
         print("---DECIDE TO GENERATE---")
         state_dict = state["keys"]
         search = state_dict["run_web_search"]

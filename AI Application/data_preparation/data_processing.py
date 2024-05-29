@@ -3,7 +3,6 @@ from infographics.generate_report import Generate_Report
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community import embeddings
 from langchain_community.vectorstores import Chroma
-from langchain_community.embeddings import OllamaEmbeddings
 import os
 import cv2
 import numpy as np
@@ -29,6 +28,9 @@ class Data_Processing:
         pass
 
     def interview_bot_splitter(self, query):
+        """
+        Split text obtained from an interview bot.
+        """
         result = data_generation.generate_result(query)
         text_splitter = RecursiveCharacterTextSplitter.from_tiktoken_encoder(
             chunk_size=250, chunk_overlap=0
@@ -37,20 +39,11 @@ class Data_Processing:
 
         return doc_splits
 
-    def store_docs_in_db(self, query):
-        doc_splits = self.interview_bot_splitter(query)
-        ollama_emb = OllamaEmbeddings(
-                model="nomic-embed-text"
-            )
-        db = Chroma.from_texts(
-            doc_splits,
-            collection_name="rag-chroma",
-            embedding=ollama_emb,
-        )
-        return db
-
-    # Function for processing each frame and saving to video crewai
-    def process_frames(input_directory = "data/crewai_input", fps = 25.0, output_directory = "data/crewai_output"):
+    # Function for processing each frame and saving to video
+    def process_frames(self, input_directory="data/crewai_input", fps=25.0, output_directory="data/crewai_output"):
+        """
+        Process frames and save them as a video.
+        """
         images = [f[0] for f in os.scandir(input_directory) if not f.is_dir()]
         total = len(images)
 
@@ -58,49 +51,41 @@ class Data_Processing:
         if isinstance(fps, int):
             fps = fps
         else:
-
             @future.wrap_future
-            def delay(
-                sec,
-            ):  # Function for handling non-numeric frame rate using future library
+            def delay(sec):
                 return sec
 
             delay_time = delay(1 / fps)
 
-        out = output(
-            output_directory + "/output.mp4", codec="libx264"
-        )  # Opening output video file for writing with FFmpeg
+        out = output(output_directory + "/output.mp4", codec="libx264")
 
         for i, image in enumerate(images):
-            start_time = time.time()  # Recording processing time per frame
+            start_time = time.time()
             frame = data_generation.read_image_and_convert_to_frame(os.path.join(input_directory, image))
-            out.video.new_frame(frame)  # Write frame to output video file with FFmpeg
+            out.video.new_frame(frame)
 
-            if not (i % 50 == 0):  # Progress updates for every 50 frames using tqdm library
+            if not (i % 50 == 0):
                 continue
 
-            percentage = round(
-                (i / total * 100), 2
-            )  # Calculating and printing frame processing percentage
+            percentage = round((i / total * 100), 2)
             tqdm.write(
                 f"\rProcessing frame {percentage}% ({i + 1}/{total})"
-            )  # Writing frame processing percentage to console using progress bar from tqdm library
+            )
 
-            # Pausing for determined frame rate before processing the next image
             if isinstance(fps, int):
-                time.sleep(1 / fps)  # Simple sleep function for integer frame rate
+                time.sleep(1 / fps)
             else:
-                time.sleep(
-                    delay_time.seconds
-                )  # Delayed sleep function for non-numeric frame rate
+                time.sleep(delay_time.seconds)
 
-            print("\r" + "=" * 30)  # Clearing the console line after frame processing
+            print("\r" + "=" * 30)
 
-        out.run()  # Write the final video output file
+        out.run()
         print("\nVideo processing completed!")
 
     def image_processing(self, inputs: dict) -> dict:
-        "Load image from file and encode it as base64."
+        """
+        Load image from file and encode it as base64.
+        """
         image_path = inputs["image_path"]
         pil_image = Image.open(image_path)
         image_base64 = data_generation.generate_base64_image(pil_image)
@@ -108,9 +93,10 @@ class Data_Processing:
         return {"image": image_base64}
 
 
-
-    def process_instructions(self,db, chain, query) -> None:
-        # access vector for k-doc chunks
+    def process_instructions(self, db, chain, query) -> None:
+        """
+        Process instructions by invoking a chain for each document in the database.
+        """
         vs = db.__dict__.get("docstore")
         docstore_id_list = list(db.__dict__.get("index_to_docstore_id").values())
         rand_doc_id_list = random.choices(docstore_id_list, k=100)
@@ -120,17 +106,18 @@ class Data_Processing:
         for i, doc_id in enumerate(rand_doc_id_list):
             start = timeit.default_timer()
             a_doc = vs.search(doc_id)
-            # print(f'CHOSEN DOC => {a_doc.page_content}\n_________________\n')
             result = chain.invoke({"question": query, "context": a_doc.page_content})
-            resp_time = timeit.default_timer() - start  # seconds
+            resp_time = timeit.default_timer() - start
             print(f'{"-"*50}\nQ #{i}: {result}\nTime: {resp_time}\n{"-"*50}\n')
             qfile.write(result[3:])
         qfile.close()
-        gen_time = timeit.default_timer() - start_gen  # seconds
+        gen_time = timeit.default_timer() - start_gen
         print(f"Total generation time => {timedelta(seconds=gen_time)}")
 
     def process_training(self, db, bm25_r, chain,) -> None:
-
+        """
+        Process training data by invoking a chain for each instruction.
+        """
         with open("data_preparation/data/llm_tuning/instructions.txt") as tfile:
             instructions = tfile.readlines()
         start_t_gen = timeit.default_timer()
@@ -143,17 +130,13 @@ class Data_Processing:
             except Exception as e:
                 print(f"FAILED for => {e}")
                 continue
-            resp_time = timeit.default_timer() - start  # seconds
-            print(
-                f'{"-"*50}\nQ #{i}: {instruction}\nA:{answer}\nTime: {resp_time}\n{"-"*50}\n'
-            )
-            result = (
-                json.dumps({"text": f"<s>[INST] {instruction}[/INST] {answer}</s>"}) + "\n"
-            )
+            resp_time = timeit.default_timer() - start
+            print(f'{"-"*50}\nQ #{i}: {instruction}\nA:{answer}\nTime: {resp_time}\n{"-"*50}\n')
+            result = json.dumps({"text": f"<s>[INST] {instruction}[/INST] {answer}</s>"}) + "\n"
             with open("data_preparation/data/llm_tuning/train_valid.jsonl", "a") as file:
                 file.write(result)
             train_lines.append(result)
-        gen_time = timeit.default_timer() - start_t_gen  # seconds
+        gen_time = timeit.default_timer() - start_t_gen
         with open("data_preparation/data/llm_tuning/valid.jsonl", "w") as file:
             file.writelines(train_lines[: int(len(train_lines) * 0.2)])
         with open("data_preparation/data/llm_tuning/train.jsonl", "w") as file:
@@ -162,16 +145,17 @@ class Data_Processing:
 
 
     def process_df2Graph(self, dataframe: pd.DataFrame, graphPrompt_result) -> list:
-        # invalid json results in NaN
-        results = graphPrompt_result.dropna()
-        results = results.reset_index(drop=True)
-
-        ## Flatten the list of lists to one single list of entities.
+        """
+        Process DataFrame to extract a list of entities.
+        """
+        results = graphPrompt_result.dropna().reset_index(drop=True)
         concept_list = np.concatenate(results).ravel().tolist()
         return concept_list
 
     def process_graph2Df(self, nodes_list) -> pd.DataFrame:
-        ## Remove all NaN entities
+        """
+        Process a list of nodes into a DataFrame.
+        """
         graph_dataframe = pd.DataFrame(nodes_list).replace(" ", np.nan)
         graph_dataframe = graph_dataframe.dropna(subset=["node_1", "node_2"])
         graph_dataframe["node_1"] = graph_dataframe["node_1"].apply(lambda x: x.lower())
@@ -179,17 +163,16 @@ class Data_Processing:
         return graph_dataframe
 
     def proces_contextual_proximity(self, df: pd.DataFrame) -> pd.DataFrame:
-        ## Melt the dataframe into a list of nodes
+        """
+        Calculate contextual proximity within a DataFrame.
+        """
         dfg_long = pd.melt(
             df, id_vars=["chunk_id"], value_vars=["node_1", "node_2"], value_name="node"
         )
         dfg_long.drop(columns=["variable"], inplace=True)
-        # Self join with chunk id as the key will create a link between terms occuring in the same text chunk.
         dfg_wide = pd.merge(dfg_long, dfg_long, on="chunk_id", suffixes=("_1", "_2"))
-        # drop self loops
         self_loops_drop = dfg_wide[dfg_wide["node_1"] == dfg_wide["node_2"]].index
         dfg2 = dfg_wide.drop(index=self_loops_drop).reset_index(drop=True)
-        ## Group and count edges.
         dfg2 = (
             dfg2.groupby(["node_1", "node_2"])
             .agg({"chunk_id": [",".join, "count"]})
@@ -198,7 +181,6 @@ class Data_Processing:
         dfg2.columns = ["node_1", "node_2", "chunk_id", "count"]
         dfg2.replace("", np.nan, inplace=True)
         dfg2.dropna(subset=["node_1", "node_2"], inplace=True)
-        # Drop edges with 1 count
         dfg2 = dfg2[dfg2["count"] != 1]
         dfg2["edge"] = "contextual proximity"
         return dfg2

@@ -6,9 +6,6 @@ from .rag_chats import GraphState, RagProcess
 from .graph_network import create_graph, colors2Community, display_graph
 from langchain_community.utilities import GoogleSerperAPIWrapper
 from langchain.agents import AgentExecutor, create_react_agent, Tool
-import gradio as gr
-from langchain.chains import ConversationalRetrievalChain
-from langchain.memory import ConversationBufferMemory
 from crewai import Crew, Process
 from langchain.chains import TransformChain
 from langchain_core.runnables import chain
@@ -28,13 +25,20 @@ rag_process = RagProcess()
 
 
 class Task_Execution:
+    """
+    Class to execute various tasks using different processes and models.
+    """
+
     def __init__(self):
         self.ollama = llm_connection.connect_ollama()
         self.chat_ollama = llm_connection.connect_chat_ollama()
         self.ollam_client, self.client_model = llm_connection.ollama_client()
 
     def execute_automate_browsing(self, search_query):
-        # Pull the ReAct prompting approach prompt to be used as base
+        """
+        Execute automated browsing task using React model.
+        """
+        print("Executing automated browsing...")
         prompt = data_generation.get_react_prompting()
         serper_wrapper = GoogleSerperAPIWrapper()
         tools = [
@@ -47,43 +51,14 @@ class Task_Execution:
         agent = create_react_agent(self.chat_ollama, tools, prompt)
         agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False)
         output = agent_executor.invoke({"input": search_query})
-
         return output
 
-
-    def gradio_interface(self):
-        iface = gr.ChatInterface(
-            fn = self.querying,
-            chatbot=gr.Chatbot(height=600),
-            textbox=gr.Textbox(placeholder="Tell me about Stripe System Design Articles?", container=False, scale=7),
-            title="MLSystemDesignBot",
-            theme="soft",
-            examples=["How to design a System for Holiday Prediction like Doordash?",
-                                "Please summarize Expedia Group's Customer Lifetime Value Prediction Model"],
-            cache_examples=True,
-            retry_btn="Retry",
-            undo_btn="Undo",
-            clear_btn="Clear",
-            submit_btn="Submit"
-                )
-
-        return iface
-
-    def querying(self, query, history):
-        db = data_processing.store_docs_in_db("Give me an indepth Recommendation System ML System Design")
-        memory = ConversationBufferMemory(memory_key="chat_history", return_messages=True)
-        qa_chain = ConversationalRetrievalChain.from_llm(
-            llm=self.ollama,
-            retriever=db.as_retriever(search_kwargs={"k": 2}),
-            memory=memory,
-            condense_question_prompt=prompt_template.interview_bot_template(),
-        )
-        result = qa_chain({"question": query})
-        return result["answer"].strip()
-
     def execute_crewai(self):
+        """
+        Execute CrewAI task.
+        """
+        print("Executing CrewAI...")
         agent1, agent2, agent3, agent4 = prompt_template.crewai_template()
-        # Initialize a Crew with Agents, Tasks, and set the process to hierarchical
         crew = Crew(
             agents=[agent1.agent, agent2.agent, agent3.agent, agent4.agent],
             tasks=[agent1.task, agent2.task, agent3.task, agent4.task],
@@ -96,19 +71,25 @@ class Task_Execution:
     @staticmethod
     @chain
     def image_model(inputs: dict) -> str | list[str] | dict:
-        """Invoke model with image and prompt."""
+        """
+        Execute model with image and prompt.
+        """
         image = data_processing.image_processing(inputs)["image"]
         multi_model = llm_connection.connect_mulimodel_ollama()
         multi_model.bind(images=image)
         msg = multi_model.invoke(
             [
-                {"role": "system", "content": "you are a usefull assistant that provides information about images"},
+                {"role": "system", "content": "you are a useful assistant that provides information about images"},
                 {"role": "user", "content": inputs["prompt"]},
             ]
         )
         return msg
 
     def get_image_informations(self, image_path: str) -> dict:
+        """
+        Retrieve information about an image.
+        """
+        print("Getting image information...")
         load_image_chain = TransformChain(
         input_variables=['image_path'],
         output_variables=['image'],
@@ -120,18 +101,21 @@ class Task_Execution:
         print('Input Prompt:', prompt_template.get_image_info_prompt())
         return output
 
-
     def format_docs(self, docs):
+        """
+        Format documents.
+        """
         return "\n\n".join([d.page_content for d in docs])
 
-
-
     def generate_instructions_training_data(self, is_gen_instruct=False, is_gen_training=False):
+        """
+        Generate instructions and training data.
+        """
+        print("Generating instructions and training data...")
         QA_PROMPT = prompt_template.llm_tunning_template()
         db, bm25_r = data_generation.load_db()
 
         output_parser = StrOutputParser()
-
 
         if is_gen_instruct:
             query = """
@@ -148,14 +132,12 @@ class Task_Execution:
             data_processing.process_instructions(db, chain, query)
 
         if is_gen_training:
-
             faiss_retriever = db.as_retriever(
                 search_type="mmr", search_kwargs={"fetch_k": 3}, max_tokens_limit=1000
             )
             ensemble_retriever = EnsembleRetriever(
                 retrievers=[bm25_r, faiss_retriever], weights=[0.3, 0.7]
             )
-
 
             # Custom QA Chain
             chain = (
@@ -164,77 +146,65 @@ class Task_Execution:
                 | self.ollama
                 | output_parser
             )
-
             data_processing.process_training(db, bm25_r, chain)
 
 
     def execute_graph_prompt(self, input: str, model: str, metadata={}):
-
+        """
+        Execute graph prompt task.
+        """
+        print("Executing graph prompt...")
         chunk_id = metadata.get('chunk_id', None)
-
-        USER_PROMPT,SYS_PROMPT = prompt_template.graphPrompt(input, chunk_id)
-
+        USER_PROMPT, SYS_PROMPT = prompt_template.graphPrompt(input, chunk_id)
         response = self.ollam_client.generate(model, system=SYS_PROMPT, prompt=USER_PROMPT)
-
         aux1 = response['response']
-        # Find the index of the first open bracket '['
         start_index = aux1.find('[')
-        # Slice the string from start_index to extract the JSON part and fix an unexpected problem with insertes escapes (WHY ?)
         json_string = aux1[start_index:]
         json_string = json_string.replace("\\\\\_", "_")
         json_string = json_string.replace('\\\\_', '_')
         json_string = json_string.replace('\\\_', '_')
         json_string = json_string.replace('\\_', '_')
         json_string = json_string.replace('\_', '_')
-        json_string.lstrip() # eliminate eventual leading blank spaces
-        #####################################################
-        print("json-string:\n" + json_string)
-        #####################################################
+        json_string.lstrip()
+        print("Response JSON string:\n" + json_string)
         try:
             result = json.loads(json_string)
             result = [dict(item) for item in result]
         except:
             print("\n\nERROR ### Here is the buggy response: ", response, "\n\n")
             result = None
-        print("§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§§")
-
         return result
 
 
     def execute_knowledge_graph(self, regenerate_data):
-        ## This is where the output csv files will be written
+        """
+        Execute knowledge graph generation task.
+        """
+        print("Executing knowledge graph generation...")
         input_file_name = "Saxony_Eastern_Expansion_EP_96.txt"
-
-        outputdirectory = Path(f"data_preparation/data/KGraph_data/data_output")
+        outputdirectory = Path("data_preparation/data/KGraph_data/data_output")
 
         output_graph_file_name = f"graph_{input_file_name[:-4]}.csv"
-        output_graph_file_with_path = outputdirectory/output_graph_file_name
+        output_graph_file_with_path = outputdirectory / output_graph_file_name
 
         output_chunks_file_name = f"chunks_{input_file_name[:-4]}.csv"
-        output_chunks_file_with_path = outputdirectory/output_chunks_file_name
+        output_chunks_file_with_path = outputdirectory / output_chunks_file_name
 
         output_context_prox_file_name = f"graph_contex_prox_{input_file_name[:-4]}.csv"
-        output_context_prox_file_with_path = outputdirectory/output_context_prox_file_name
+        output_context_prox_file_with_path = outputdirectory / output_context_prox_file_name
 
+        # Generate documents from pages
         pages = data_generation.generate_docs_pages(input_file_name)
-
         df = data_generation.generate_docs2Dataframe(pages)
-
         print(df.shape)
-        df.head()
+        print(df.head())
 
-        ##################
-        #  # toggle to True if the time-consuming (re-)generation of the knowlege extraction is required
-        ##################
+        # Toggle to True if the time-consuming (re-)generation of the knowledge extraction is required
         if regenerate_data:
-        #########################################################
-
             results = df.apply(
                 lambda row: self.execute_graph_prompt(row.text, self.client_model, {"chunk_id": row.chunk_id}), axis=1
             )
             concepts_list = data_processing.process_df2Graph(df, results)
-
-        #########################################################
             dfg1 = data_processing.process_graph2Df(concepts_list)
 
             if not os.path.exists(outputdirectory):
@@ -245,39 +215,33 @@ class Task_Execution:
         else:
             dfg1 = pd.read_csv(output_graph_file_with_path, sep=";")
 
+        # Clean up DataFrame
         dfg1.replace("", np.nan, inplace=True)
         dfg1.dropna(subset=["node_1", "node_2", 'edge'], inplace=True)
         dfg1['count'] = 4
-        ## Increasing the weight of the relation to 4.
-        ## We will assign the weight of 1 when later the contextual proximity will be calculated.
         print(dfg1.shape)
-        dfg1.head()
+        print(dfg1.head())
 
-        # ## Calculating contextual proximity
-
+        # Process contextual proximity
         dfg2 = data_processing.proces_contextual_proximity(dfg1)
         dfg2.to_csv(output_context_prox_file_with_path, sep=";", index=False)
-        dfg2.tail()
+        print(dfg2.tail())
 
-        # ### Merge both the dataframes
-
+        # Combine dataframes
         dfg = pd.concat([dfg1, dfg2], axis=0)
         dfg = (
             dfg.groupby(["node_1", "node_2"])
             .agg({"chunk_id": ",".join, "edge": ','.join, 'count': 'sum'})
             .reset_index()
         )
-        dfg.head()
+        print(dfg.head())
 
-        # ## Calculate the NetworkX Graph
-
+        # Create graph
         nodes = pd.concat([dfg['node_1'], dfg['node_2']], axis=0).unique()
-        nodes.shape
+        print(nodes.shape)
 
         G, communities = create_graph(nodes, dfg)
         colors = colors2Community(communities)
-
-        # ### Add colors to the graph
 
         for index, row in colors.iterrows():
             G.nodes[row['node']]['group'] = row['group']
@@ -286,17 +250,20 @@ class Task_Execution:
 
         display_graph(G)
 
-        return 'Successfully generated required Knownledge Graph.'
+        return 'Successfully generated required Knowledge Graph.'
 
 
     def execute_Rag_Chatbot(self, query):
+        """
+        Execute Retrieval-Augmented Generation (RAG) chatbot task.
+        """
         workflow = StateGraph(GraphState)
 
         # Define the nodes
         workflow.add_node("retrieve", data_generation.retrieve)  # retrieve
         workflow.add_node("grade_documents", rag_process.grade_documents)  # grade documents
-        workflow.add_node("generate", rag_process.generate)  # generatae
-        workflow.add_node("transform_query", rag_process.transform_query)  # transform_query
+        workflow.add_node("generate", rag_process.generate)  # generate
+        workflow.add_node("transform_query", rag_process.transform_query)  # transform query
         workflow.add_node("web_search", rag_process.web_search)  # web search
 
         # Build graph
@@ -317,7 +284,6 @@ class Task_Execution:
         # Compile
         app = workflow.compile()
 
-
         inputs = {
             "keys": {
                 "question": query,
@@ -325,7 +291,6 @@ class Task_Execution:
         }
         for output in app.stream(inputs):
             for key, value in output.items():
-                # Node
                 print(f"Node '{key}':")
             pprint.pprint("\n---\n")
 

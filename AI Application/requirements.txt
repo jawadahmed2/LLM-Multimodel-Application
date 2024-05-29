@@ -7,3 +7,4 @@ ffmpeg-python==0.2.0
 pillow==10.3.0
 seaborn==0.13.2
 pyvis==0.3.2
+torch==2.2.1

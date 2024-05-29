@@ -25,9 +25,11 @@ class Data_Generation:
     def __init__(self):
         self.ollama = llm_connection.connect_ollama()
 
-    # Get the react prompting for the Automate Browsing Task
     @staticmethod
     def get_react_prompting():
+        """
+        Get the React prompting for the Automate Browsing Task.
+        """
         prompt = hub.pull("hwchase17/react")
         return prompt
 
@@ -35,12 +37,13 @@ class Data_Generation:
         result = self.ollama(query)
         return result
 
-    # Function for reading image file from input directory and converting to frame crewai
     def read_image_and_convert_to_frame(self, image_path):
-        image = cv2.imread(image_path, cv2.IMREAD_COLOR)  # Open image using OpenCV
-        return np.asarray(image)  # Convert the OpenCV matrix to NumPy array for processing
+        """
+        Read an image file from the input directory and convert it to a frame.
+        """
+        image = cv2.imread(image_path, cv2.IMREAD_COLOR)
+        return np.asarray(image)
 
-    # Function for generating the script content and writing to a file crewai
     def write_script_to_file(self, script_content: str, file_name: str) -> str:
         """
         Write the script content to a file.
@@ -66,9 +69,11 @@ class Data_Generation:
         if start_index == -1:
             start_index = script_content.find("```")
             l1 = len("```")
+
         end_index = script_content.find("```", start_index + l1)
         if end_index == -1:
             end_index = len(script_content) - 1
+
         if start_index == -1 or end_index == -1:
             return "Script content must be enclosed between ```python and ``` tags."
         else:
@@ -82,49 +87,58 @@ class Data_Generation:
 
 
     def generate_base64_image(self, pil_image):
+        """
+        Generate a base64-encoded image from a PIL image.
+        """
         buffered = BytesIO()
-        pil_image.save(buffered, format="JPEG")  # You can change the format if needed
+        pil_image.save(buffered, format="JPEG")
         img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
         return img_str
 
-
-    # load an online pdf and split it
     def load_doc(self) -> 'List[Document]':
+        """
+        Load an online PDF and split it.
+        """
         loader = OnlinePDFLoader("https://support.riverbed.com/bin/support/download?did=7q6behe7hotvnpqd9a03h1dji&version=9.15.0")
         documents = loader.load()
         text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=200)
         docs = text_splitter.split_documents(documents)
         return docs
 
-    # vectorize, commit to disk and create a BM25 retriever
-    def vectorize(self, embeddings) -> tuple[FAISS,BM25Retriever]:
+    def vectorize(self, embeddings) -> tuple[FAISS, BM25Retriever]:
+        """
+        Vectorize, commit to disk, and create a BM25 retriever.
+        """
         docs = self.load_doc()
         db = FAISS.from_documents(docs, embeddings)
         db.save_local("./opdf_index")
         bm25_retriever = BM25Retriever.from_documents(docs)
-        bm25_retriever.k=5
-        return db,bm25_retriever
+        bm25_retriever.k = 5
+        return db, bm25_retriever
 
-    # attempts to load vectorstore from disk
-    def load_db(self) -> tuple[FAISS,BM25Retriever]:
+    def load_db(self) -> tuple[FAISS, BM25Retriever]:
+        """
+        Attempts to load a vector store from disk.
+        """
         embeddings_model = HuggingFaceEmbeddings()
         try:
             db = FAISS.load_local("./opdf_index", embeddings_model)
-            bm25_retriever = BM25Retriever.from_documents(load_doc())
-            bm25_retriever.k=5
+            bm25_retriever = BM25Retriever.from_documents(self.load_doc())
+            bm25_retriever.k = 5
         except Exception as e:
             print(f'Exception: {e}\nno index on disk, creating new...')
-            db,bm25_retriever = self.vectorize(embeddings_model)
-        return db,bm25_retriever
+            db, bm25_retriever = self.vectorize(embeddings_model)
+        return db, bm25_retriever
 
     def generate_docs_pages(self, input_file_name):
-        ## Input data directory
-        data_dir = "data_preparation/data/KGraph_data/"+input_file_name
+        """
+        Generate document pages from an input file.
+        """
+        data_dir = "data_preparation/data/KGraph_data/" + input_file_name
         inputdirectory = Path(f"./{data_dir}")
 
         loader = TextLoader(inputdirectory)
         Document = loader.load()
-        # clean unnecessary line breaks
         Document[0].page_content = Document[0].page_content.replace("\n", " ")
 
         splitter = RecursiveCharacterTextSplitter(
@@ -140,7 +154,10 @@ class Data_Generation:
 
         return pages
 
-    def generate_docs2Dataframe(self,documents) -> pd.DataFrame:
+    def generate_docs2Dataframe(self, documents) -> pd.DataFrame:
+        """
+        Generate a DataFrame from documents.
+        """
         rows = []
         for chunk in documents:
             row = {
@@ -154,6 +171,10 @@ class Data_Generation:
         return df
 
     def retrieve(self, state):
+        """
+        Retrieve documents.
+        """
+
         print("---RETRIEVE---")
         url  = 'https://lilianweng.github.io/posts/2023-06-23-agent/'
         loader = WebBaseLoader(url)

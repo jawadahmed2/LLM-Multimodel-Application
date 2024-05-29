@@ -5,11 +5,18 @@ from pathlib import Path
 import subprocess
 import os
 
-
 data_generation = Data_Generation()
 llm_connection = LLMConnection()
 
 class AgentTask:
+    """
+    A class representing an agent's task.
+
+    Attributes:
+    - file_name (str): The name of the file to write the output to.
+    - agent (Agent): The agent assigned to the task.
+    - task (Task): The task to be performed by the agent.
+    """
 
     def __init__(
         self,
@@ -21,6 +28,18 @@ class AgentTask:
         context=[],
         file_path=None,
     ):
+        """
+        Initialize the AgentTask class.
+
+        Args:
+        - role (str): The role of the agent.
+        - goal (str): The goal of the agent.
+        - backstory (str): The backstory of the agent.
+        - task_description (str): The description of the task.
+        - expected_output (str): The expected output of the task.
+        - context (list): The context of the task.
+        - file_path (str): The file path to write the output to.
+        """
         self.file_name = file_path
         # Initialize an Agent instance for this task
         self.agent = Agent(
@@ -45,6 +64,15 @@ class AgentTask:
             )
 
     def callback(self, output):
+        """
+        Perform callback actions after executing the task.
+
+        Args:
+        - output: The output of the task.
+
+        Returns:
+        - str: Error message if any.
+        """
         if output is not None:
             if self.file_name is None:
                 filename = f'../data_preparation/data/crewai_result/{self.agent.role.replace(" ","")}.py'

@@ -3,10 +3,17 @@ from langchain_core.prompts import PromptTemplate
 from task_execution.crewai_agent import AgentTask
 
 class Prompt_Template:
+    """
+    Class containing various prompt templates.
+    """
+
     def __init__(self):
         pass
 
     def interview_bot_template(self):
+        """
+        Template for interview bot.
+        """
         custom_template = """You are a Machine Learning System Design Interview help  AI Assistant. Given the
         following conversation and a follow up question, Give an appropriate response with the ML context given to you/ '.
         Chat History:
@@ -20,6 +27,9 @@ class Prompt_Template:
         return CUSTOM_QUESTION_PROMPT
 
     def crewai_template(self):
+        """
+        Template for crewai project.
+        """
         project_brief = """
         Project Title: Image to video conversion app
         app type: console
@@ -78,6 +88,9 @@ class Prompt_Template:
         return agent1, agent2, agent3, agent4
 
     def get_image_info_prompt(self):
+        """
+        Prompt for image information.
+        """
         vision_prompt = """
                         Given the image, provide the following information:
                         - A count of how many people are in the image
@@ -88,6 +101,9 @@ class Prompt_Template:
         return vision_prompt
 
     def llm_tunning_template(self):
+        """
+        Template for LLM tuning.
+        """
         from langchain.prompts import PromptTemplate
 
         # Prompt template
@@ -103,10 +119,9 @@ class Prompt_Template:
         return QA_PROMPT
 
     def graphPrompt(self, input: str, chunk_id):
-
-        # model_info = client.show(model_name=model)
-        # print( chalk.blue(model_info))
-
+        """
+        Prompt for graph generation.
+        """
         SYS_PROMPT = (
             "You are a network graph maker who extracts terms and their relations from a given context. "
             "You are provided with a context chunk (delimited by ```) Your task is to extract the ontology "
@@ -137,6 +152,9 @@ class Prompt_Template:
         return USER_PROMPT, SYS_PROMPT
 
     def get_rag_prompt(self, parser):
+        """
+        Prompt for RAG grading.
+        """
         prompt = PromptTemplate(
                     template="""You are a grader assessing relevance of a retrieved
                                     document to a user question. \n
@@ -159,16 +177,19 @@ class Prompt_Template:
         return prompt
 
     def question_rewriter_prompt(self):
+        """
+        Prompt for question rewriting.
+        """
         prompt = PromptTemplate(
                 template="""You are generating questions that is well optimized for
                             retrieval. \n
-                Look at the input and try to reason about the underlying sematic
+                Look at the input and try to reason about the underlying semantic
                 intent / meaning. \n
                 Here is the initial question:
                 \n ------- \n
                 {question}
                 \n ------- \n
-                Provide an improved question without any premable, only respond
+                Provide an improved question without any preamble, only respond
                 with the updated question: """,
                 input_variables=["question"],
             )
