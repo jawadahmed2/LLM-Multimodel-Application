@@ -1,3 +1,4 @@
+from typing import List
 from langchain import hub
 from client.llm_connection import LLMConnection
 import cv2
@@ -14,9 +15,9 @@ from langchain_community.vectorstores import Chroma
 from langchain_community.embeddings.ollama import OllamaEmbeddings
 from pathlib import Path
 import pandas as pd
-import random
 import uuid
 from config.ai_config import AIConfig
+import numpy as np
 
 llm_connection = LLMConnection()
 ai_config = AIConfig()
@@ -95,7 +96,7 @@ class Data_Generation:
         img_str = base64.b64encode(buffered.getvalue()).decode("utf-8")
         return img_str
 
-    def load_doc(self) -> 'List[Document]':
+    def load_doc(self):
         """
         Load an online PDF and split it.
         """

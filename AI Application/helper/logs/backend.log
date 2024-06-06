@@ -1,0 +1,77 @@
+2024-06-06 23:10:30 | INFO     | app | logging:callHandlers:1762 - Started server process [20307]
+2024-06-06 23:10:30 | INFO     | app | logging:callHandlers:1762 - Started server process [20307]
+2024-06-06 23:10:30 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:10:30 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:10:30 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:10:30 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:10:34 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:57930 - "GET /docs HTTP/1.1" 200
+2024-06-06 23:10:44 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:57932 - "GET /openapi.json HTTP/1.1" 200
+2024-06-06 23:11:19 | INFO     | app | ai_interactions.ai_approaches:automate_browsing:18 - Automate Browsing with query What is happening with Arvind Kejriwal today?...
+2024-06-06 23:12:59 | ERROR    | app | routes.ai_routes:ai_automate_browsing:34 - Error in browsing automation: An output parsing error occurred. In order to pass this error back to the agent and have it try again, pass `handle_parsing_errors=True` to the AgentExecutor. This is the error: Could not parse LLM output: ` Arvind Kejriwal is currently in jail due to accusations against him in the Delhi liquor policy case. He has been in jail since April 1, 2024, and there have been reports of a row over his diabetes and medication while in custody. The latest on the Delhi and Punjab elections shows that the AAP is leading in only a few seats in Punjab and trailing in most others, while the BJP is on track to win all 7 seats in Delhi.`
+2024-06-06 23:12:59 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:39594 - "POST /ai/automate_browsing HTTP/1.1" 500
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Finished server process [20307]
+2024-06-06 23:15:08 | INFO     | app | logging:callHandlers:1762 - Finished server process [20307]
+2024-06-06 23:15:24 | INFO     | app | logging:callHandlers:1762 - Started server process [26471]
+2024-06-06 23:15:24 | INFO     | app | logging:callHandlers:1762 - Started server process [26471]
+2024-06-06 23:15:24 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:15:24 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:15:24 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:15:24 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Finished server process [26471]
+2024-06-06 23:15:52 | INFO     | app | logging:callHandlers:1762 - Finished server process [26471]
+2024-06-06 23:16:13 | INFO     | app | logging:callHandlers:1762 - Started server process [26871]
+2024-06-06 23:16:13 | INFO     | app | logging:callHandlers:1762 - Started server process [26871]
+2024-06-06 23:16:13 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:16:13 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:16:13 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:16:13 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Finished server process [26871]
+2024-06-06 23:16:15 | INFO     | app | logging:callHandlers:1762 - Finished server process [26871]
+2024-06-06 23:16:32 | INFO     | app | logging:callHandlers:1762 - Started server process [27045]
+2024-06-06 23:16:32 | INFO     | app | logging:callHandlers:1762 - Started server process [27045]
+2024-06-06 23:16:32 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:16:32 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:16:32 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:16:32 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:16:35 | INFO     | app | ai_interactions.ai_approaches:automate_browsing:18 - Automate Browsing with query What is happening with Arvind Kejriwal today?...
+2024-06-06 23:17:25 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:49398 - "POST /ai/automate_browsing HTTP/1.1" 200
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Finished server process [27045]
+2024-06-06 23:20:49 | INFO     | app | logging:callHandlers:1762 - Finished server process [27045]
+2024-06-06 23:21:16 | INFO     | app | logging:callHandlers:1762 - Started server process [31394]
+2024-06-06 23:21:16 | INFO     | app | logging:callHandlers:1762 - Started server process [31394]
+2024-06-06 23:21:16 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:21:16 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-06 23:21:16 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:21:16 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Finished server process [31394]
+2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Finished server process [31394]

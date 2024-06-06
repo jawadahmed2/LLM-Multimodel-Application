@@ -16,6 +16,8 @@ import pprint
 from pathlib import Path
 import pandas as pd
 import numpy as np
+import json
+import os
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
@@ -32,7 +34,7 @@ class Task_Execution:
     def __init__(self):
         self.ollama = llm_connection.connect_ollama()
         self.chat_ollama = llm_connection.connect_chat_ollama()
-        self.ollam_client, self.client_model = llm_connection.ollama_client()
+        self.ollama_client, self.client_model = llm_connection.ollama_client()
 
     def execute_automate_browsing(self, search_query):
         """
@@ -156,7 +158,7 @@ class Task_Execution:
         print("Executing graph prompt...")
         chunk_id = metadata.get('chunk_id', None)
         USER_PROMPT, SYS_PROMPT = prompt_template.graphPrompt(input, chunk_id)
-        response = self.ollam_client.generate(model, system=SYS_PROMPT, prompt=USER_PROMPT)
+        response = self.ollama_client.generate(model, system=SYS_PROMPT, prompt=USER_PROMPT)
         aux1 = response['response']
         start_index = aux1.find('[')
         json_string = aux1[start_index:]

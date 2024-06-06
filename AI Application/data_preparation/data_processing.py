@@ -18,6 +18,7 @@ from PIL import Image
 import random
 from datetime import timedelta
 import timeit
+import json
 
 
 data_generation = Data_Generation()
