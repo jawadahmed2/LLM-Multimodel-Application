@@ -1,13 +1,12 @@
-from ai_interactions.ai_approaches import AI_Approaches
 from fastapi import APIRouter, HTTPException, File, UploadFile, Form
 from loguru import logger
-from typing import Optional
 from pydantic import BaseModel, Field
+from .lifespan_manager import ml_models
+import threading
 
 
 ai_router = APIRouter()
 
-select_ai_approach = AI_Approaches()
 
 
 class AutomateBrowsing(BaseModel):
@@ -28,12 +27,15 @@ async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
     """
     try:
         search_query = automate_browsing.prompt
-        response = select_ai_approach.automate_browsing(search_query)
+        response = ml_models["automate_browsing"](search_query)
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in browsing automation: {e}")
         raise HTTPException(status_code=500, detail="Error in browsing automation")
 
+def launch_gradio():
+    iface = ml_models["interview_bot"]()
+    iface.launch(share=True)
 
 @ai_router.get("/ai/interview_bot", tags=["AI Route"])
 async def ai_interview_bot():
@@ -43,8 +45,9 @@ async def ai_interview_bot():
     Returns:
     - The launched Gradio interface for the interview bot.
     """
-    iface = select_ai_approach.interview_bot()
-    return iface
+    thread = threading.Thread(target=launch_gradio)
+    thread.start()
+    return {"message": "Interview bot is running in the background.", "link": "http://127.0.0.1:7860/"}
 
 class CrewAI(BaseModel):
     pass
@@ -59,7 +62,7 @@ async def ai_crewai(crewai: CrewAI):
     - If any exception occurs during CrewAI execution, returns an error response with status code 500.
     """
     try:
-        response = select_ai_approach.crewai()
+        response = ml_models["crewai"]()
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in CrewAI execution: {e}")
@@ -88,7 +91,7 @@ async def ai_get_image_information(file: UploadFile = File(...)):
             file_object.write(file.file.read())
 
         # Pass the file path to the AI approach
-        response = select_ai_approach.get_image_information(file_location)
+        response = ml_models["get_image_information"](file_location)
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in image information retrieval: {e}")
@@ -107,7 +110,7 @@ async def ai_generate_instructions_training_data(instructions_training_data: Ins
     - If any exception occurs during training data generation, returns an error response with status code 500.
     """
     try:
-        response = select_ai_approach.get_instructions_training_data()
+        response = ml_models["get_instructions_training_data"]()
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in training data generation: {e}")
@@ -126,7 +129,7 @@ async def ai_generate_knowledge_graph(knowledge_graph: KnowledgeGraph):
     - If any exception occurs during knowledge graph generation, returns an error response with status code 500.
     """
     try:
-        response = select_ai_approach.generate_knowledge_graph()
+        response = ml_models["generate_knowledge_graph"]()
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in knowledge graph generation: {e}")
@@ -151,7 +154,7 @@ async def ai_powerful_rag_chatbot(powerful_rag_chatbot: PowerfulRAGChatbot):
     """
     try:
         query = powerful_rag_chatbot.query
-        response = select_ai_approach.powerful_rag_chatbot(query)
+        response = ml_models["powerful_rag_chatbot"](query)
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in powerful RAG chatbot execution: {e}")

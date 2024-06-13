@@ -4,8 +4,9 @@ from config.app_config import get_app_config
 from fastapi.middleware.cors import CORSMiddleware
 from routes.ai_routes import ai_router
 from helpers.logger import setup_logger
+from routes.lifespan_manager import manager
 
-app = FastAPI()
+app = FastAPI(lifespan=manager)
 
 setup_logger()
 

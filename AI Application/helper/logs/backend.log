@@ -75,3 +75,27 @@
 2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
 2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Finished server process [31394]
 2024-06-06 23:22:55 | INFO     | app | logging:callHandlers:1762 - Finished server process [31394]
+2024-06-13 23:16:14 | INFO     | app | logging:callHandlers:1762 - Started server process [22406]
+2024-06-13 23:16:14 | INFO     | app | logging:callHandlers:1762 - Started server process [22406]
+2024-06-13 23:16:14 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-13 23:16:14 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-13 23:16:14 | INFO     | app | routes.lifespan_manager:models_lifespan:17 - Starting up and loading ML models...
+2024-06-13 23:16:14 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-13 23:16:14 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-13 23:16:21 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:50158 - "GET / HTTP/1.1" 404
+2024-06-13 23:16:22 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:50158 - "GET /favicon.ico HTTP/1.1" 404
+2024-06-13 23:16:26 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:50172 - "GET /docs HTTP/1.1" 200
+2024-06-13 23:16:27 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:50172 - "GET /openapi.json HTTP/1.1" 200
+2024-06-13 23:21:25 | INFO     | app | logging:callHandlers:1762 - Started server process [26690]
+2024-06-13 23:21:25 | INFO     | app | logging:callHandlers:1762 - Started server process [26690]
+2024-06-13 23:21:25 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-13 23:21:25 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-13 23:21:25 | INFO     | app | routes.lifespan_manager:models_lifespan:17 - Starting up and loading ML models...
+2024-06-13 23:21:25 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-13 23:21:25 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-13 23:21:34 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:51364 - "GET /docs HTTP/1.1" 200
+2024-06-13 23:21:35 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:51364 - "GET /openapi.json HTTP/1.1" 200
+2024-06-13 23:21:39 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:51364 - "GET /ai/interview_bot HTTP/1.1" 200
+2024-06-13 23:22:20 | INFO     | app | ai_interactions.ai_approaches:crewai:40 - Execute CrewAI Task...
+2024-06-13 23:22:52 | ERROR    | app | routes.ai_routes:ai_crewai:68 - Error in CrewAI execution: Error code: 404 - {'error': {'message': "model 'gpt-4' not found, try pulling it first", 'type': 'api_error', 'param': None, 'code': None}}
+2024-06-13 23:23:15 | INFO     | app | routes.lifespan_manager:models_lifespan:27 - Shutting down and releasing ML models...
