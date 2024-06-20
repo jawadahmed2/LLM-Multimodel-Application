@@ -1,5 +1,4 @@
 from .data_generation import Data_Generation
-from infographics.generate_report import Generate_Report
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community import embeddings
 from langchain_community.vectorstores import Chroma
@@ -19,10 +18,10 @@ import random
 from datetime import timedelta
 import timeit
 import json
+from loguru import logger
 
 
 data_generation = Data_Generation()
-generate_report = Generate_Report()
 
 class Data_Processing:
     def __init__(self):
@@ -81,7 +80,20 @@ class Data_Processing:
             print("\r" + "=" * 30)
 
         out.run()
-        print("\nVideo processing completed!")
+        logger.info("\nVideo processing completed!")
+
+
+    def plt_img_base64(self, img_base64):
+        """
+        Display base64 encoded string as image.
+
+        :param img_base64: Base64 string
+        """
+        # Create an HTML img tag with the base64 string as the source
+        image_html = f'<img src="data:image/jpeg;base64,{img_base64}" />'
+        # Display the image by rendering the HTML
+        logger.info(f"Displaying image: {image_html}")
+
 
     def image_processing(self, inputs: dict) -> dict:
         """
@@ -90,7 +102,7 @@ class Data_Processing:
         image_path = inputs["image_path"]
         pil_image = Image.open(image_path)
         image_base64 = data_generation.generate_base64_image(pil_image)
-        generate_report.plt_img_base64(image_base64)
+        self.plt_img_base64(image_base64)
         return {"image": image_base64}
 
 
@@ -109,11 +121,11 @@ class Data_Processing:
             a_doc = vs.search(doc_id)
             result = chain.invoke({"question": query, "context": a_doc.page_content})
             resp_time = timeit.default_timer() - start
-            print(f'{"-"*50}\nQ #{i}: {result}\nTime: {resp_time}\n{"-"*50}\n')
+            logger.info(f'{"-"*50}\nQ #{i}: {result}\nTime: {resp_time}\n{"-"*50}\n')
             qfile.write(result[3:])
         qfile.close()
         gen_time = timeit.default_timer() - start_gen
-        print(f"Total generation time => {timedelta(seconds=gen_time)}")
+        logger.info(f"Total generation time => {timedelta(seconds=gen_time)}")
 
     def process_training(self, db, bm25_r, chain,) -> None:
         """
@@ -124,15 +136,15 @@ class Data_Processing:
         start_t_gen = timeit.default_timer()
         train_lines = list()
         for i, instruction in enumerate(instructions, start=1):
-            print(f"Handling ({i}/{len(instructions)}):")
+            logger.info(f"Handling ({i}/{len(instructions)}):")
             start = timeit.default_timer()
             try:
                 answer = chain.invoke(instruction)
             except Exception as e:
-                print(f"FAILED for => {e}")
+                logger.debug(f"FAILED for => {e}")
                 continue
             resp_time = timeit.default_timer() - start
-            print(f'{"-"*50}\nQ #{i}: {instruction}\nA:{answer}\nTime: {resp_time}\n{"-"*50}\n')
+            logger.info(f'{"-"*50}\nQ #{i}: {instruction}\nA:{answer}\nTime: {resp_time}\n{"-"*50}\n')
             result = json.dumps({"text": f"<s>[INST] {instruction}[/INST] {answer}</s>"}) + "\n"
             with open("data_preparation/data/llm_tuning/train_valid.jsonl", "a") as file:
                 file.write(result)
@@ -142,7 +154,7 @@ class Data_Processing:
             file.writelines(train_lines[: int(len(train_lines) * 0.2)])
         with open("data_preparation/data/llm_tuning/train.jsonl", "w") as file:
             file.writelines(train_lines[int(len(train_lines) * 0.2) :])
-        print(f"Total training generation time => {timedelta(seconds=gen_time)}")
+        logger.info(f"Total training generation time => {timedelta(seconds=gen_time)}")
 
 
     def process_df2Graph(self, dataframe: pd.DataFrame, graphPrompt_result) -> list:

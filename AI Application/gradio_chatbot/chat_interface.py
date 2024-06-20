@@ -2,6 +2,9 @@ from client.llm_connection import LLMConnection
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 import gradio as gr
+from langchain.vectorstores import Chroma
+from data_preparation import prompt_template
+from langchain_community import embeddings
 
 llm_connection = LLMConnection()
 
@@ -82,10 +85,10 @@ class Interview_Bot:
         - db: The database containing the documents.
         """
         doc_splits = self.interview_bot_splitter(query)
-        ollama_emb = OllamaEmbeddings(model="nomic-embed-text")
+        ollama_emb = embeddings.ollama.OllamaEmbeddings(model='nomic-embed-text')
         db = Chroma.from_texts(
             doc_splits,
             collection_name="rag-chroma",
-            embedding=ollama_emb,
+            embedding=ollama_emb, persist_directory="db"
         )
         return db

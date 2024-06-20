@@ -1,0 +1,29 @@
+[tool.poetry]
+name = "project-packages"
+version = "0.1.0"
+description = ""
+authors = ["Jawad Ahmed <jawad.kohat2002@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = ">=3.12,<=3.13"
+langchain_community = "0.0.36"
+langchain = "0.1.17"
+ollama = "0.1.9"
+gradio = "4.0.0"  # Adjusted version
+future = "1.0.0"
+ffmpeg-python = "0.2.0"
+pillow = "10.3.0"
+seaborn = "0.13.2"
+pyvis = "0.3.2"
+torch = "2.2.1"
+loguru = "0.7.2"
+fastapi_lifespan_manager = "0.1.4"
+opencv-python = "4.9.0.80"
+crewai = "0.28.8"
+langgraph = "0.0.47"
+langchainhub = "0.1.15"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

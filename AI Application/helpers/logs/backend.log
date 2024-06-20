@@ -1,0 +1,19 @@
+2024-06-20 23:58:25 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-06-20 23:58:32 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-06-20 23:58:32 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-06-20 23:58:32 | INFO     | app | logging:callHandlers:1762 - Started server process [69261]
+2024-06-20 23:58:32 | INFO     | app | logging:callHandlers:1762 - Started server process [69261]
+2024-06-20 23:58:32 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-20 23:58:32 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-06-20 23:58:32 | INFO     | app | routes.lifespan_manager:models_lifespan:17 - Starting up and loading ML models...
+2024-06-20 23:58:32 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-20 23:58:32 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-06-21 00:00:14 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-21 00:00:14 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-06-21 00:00:15 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-21 00:00:15 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-06-21 00:00:15 | INFO     | app | routes.lifespan_manager:models_lifespan:27 - Shutting down and releasing ML models...
+2024-06-21 00:00:15 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-21 00:00:15 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-06-21 00:00:15 | INFO     | app | logging:callHandlers:1762 - Finished server process [69261]
+2024-06-21 00:00:15 | INFO     | app | logging:callHandlers:1762 - Finished server process [69261]

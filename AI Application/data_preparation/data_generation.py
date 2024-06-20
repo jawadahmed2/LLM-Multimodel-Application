@@ -1,5 +1,6 @@
 from typing import List
 from langchain import hub
+from loguru import logger
 from client.llm_connection import LLMConnection
 import cv2
 import base64
@@ -112,7 +113,7 @@ class Data_Generation:
         """
         docs = self.load_doc()
         db = FAISS.from_documents(docs, embeddings)
-        db.save_local("./opdf_index")
+        db.save_local("data_preparation/data/opdf_index")
         bm25_retriever = BM25Retriever.from_documents(docs)
         bm25_retriever.k = 5
         return db, bm25_retriever
@@ -123,11 +124,11 @@ class Data_Generation:
         """
         embeddings_model = HuggingFaceEmbeddings()
         try:
-            db = FAISS.load_local("./opdf_index", embeddings_model)
+            db = FAISS.load_local("data_preparation/data/opdf_index", embeddings_model)
             bm25_retriever = BM25Retriever.from_documents(self.load_doc())
             bm25_retriever.k = 5
         except Exception as e:
-            print(f'Exception: {e}\nno index on disk, creating new...')
+            logger.debug(f'Exception: {e}\nno index on disk, creating new...')
             db, bm25_retriever = self.vectorize(embeddings_model)
         return db, bm25_retriever
 
@@ -150,8 +151,8 @@ class Data_Generation:
         )
 
         pages = splitter.split_documents(Document)
-        print("Number of chunks = ", len(pages))
-        print(pages[5].page_content)
+        logger.info("Number of chunks = ", len(pages))
+        logger.info(pages[5].page_content)
 
         return pages
 
@@ -176,7 +177,7 @@ class Data_Generation:
         Retrieve documents.
         """
 
-        print("---RETRIEVE---")
+        logger.info("---RETRIEVE---")
         url  = 'https://lilianweng.github.io/posts/2023-06-23-agent/'
         loader = WebBaseLoader(url)
         docs = loader.load()

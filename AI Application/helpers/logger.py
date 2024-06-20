@@ -38,7 +38,7 @@ def setup_logger():
     # Define a custom format for the logger
     custom_format = "<green>{time:YYYY-MM-DD HH:mm:ss}</green> | <level>{level: <8}</level> | <cyan>{extra[request_id]}</cyan> | <cyan>{name}</cyan>:<cyan>{function}</cyan>:<cyan>{line}</cyan> - <level>{message}</level>"
 
-    log_file = "helper/logs/backend.log"
+    log_file = "helpers/logs/backend.log"
     logger.configure(
         extra={"request_id": "app"}, # default identifer for request id
         handlers=[
