@@ -8,9 +8,9 @@ import threading
 ai_router = APIRouter()
 
 
-
 class AutomateBrowsing(BaseModel):
-    prompt: str
+    instruction: str = Field("Search Google and return the first result.", description="Instruction for the browsing automation.")
+    query: str = Field(..., description="Query to search on Google.")
 
 @ai_router.post("/ai/automate_browsing", tags=["AI Route"])
 async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
@@ -26,28 +26,13 @@ async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
     - If any exception occurs during browsing automation, returns an error response with status code 500.
     """
     try:
-        search_query = automate_browsing.prompt
-        response = ml_models["automate_browsing"](search_query)
+        search_query = automate_browsing.query
+        prompt = automate_browsing.instruction
+        response = ml_models["automate_browsing"](search_query, prompt)
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in browsing automation: {e}")
         raise HTTPException(status_code=500, detail="Error in browsing automation")
-
-def launch_gradio():
-    iface = ml_models["interview_bot"]()
-    iface.launch(share=True)
-
-@ai_router.get("/ai/interview_bot", tags=["AI Route"])
-async def ai_interview_bot():
-    """
-    Endpoint to launch the interview bot interface using Gradio.
-
-    Returns:
-    - The launched Gradio interface for the interview bot.
-    """
-    thread = threading.Thread(target=launch_gradio)
-    thread.start()
-    return {"message": "Interview bot is running in the background.", "link": "http://127.0.0.1:7860/"}
 
 class CrewAI(BaseModel):
     pass
@@ -159,3 +144,19 @@ async def ai_powerful_rag_chatbot(powerful_rag_chatbot: PowerfulRAGChatbot):
     except Exception as e:
         logger.error(f"Error in powerful RAG chatbot execution: {e}")
         raise HTTPException(status_code=500, detail="Error in powerful RAG chatbot execution")
+
+def launch_gradio():
+    iface = ml_models["interview_bot"]()
+    iface.launch(share=True)
+
+@ai_router.get("/ai/interview_bot", tags=["AI Route"])
+async def ai_interview_bot():
+    """
+    Endpoint to launch the interview bot interface using Gradio.
+
+    Returns:
+    - The launched Gradio interface for the interview bot.
+    """
+    thread = threading.Thread(target=launch_gradio)
+    thread.start()
+    return {"message": "Interview bot is running in the background.", "link": "http://127.0.0.1:7860/"}

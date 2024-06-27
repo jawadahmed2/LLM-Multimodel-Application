@@ -12,6 +12,7 @@ from langchain_core.runnables import chain
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
 from langchain_core.output_parsers import StrOutputParser
 from langgraph.graph import END, StateGraph
+from langchain.retrievers import EnsembleRetriever
 import pprint
 from pathlib import Path
 import pandas as pd
@@ -36,7 +37,7 @@ class Task_Execution:
         self.chat_ollama = llm_connection.connect_chat_ollama()
         self.ollama_client, self.client_model = llm_connection.ollama_client()
 
-    def execute_automate_browsing(self, search_query):
+    def execute_automate_browsing(self, search_query, user_prompt):
         """
         Execute automated browsing task using React model.
         """
@@ -46,7 +47,7 @@ class Task_Execution:
         tools = [
             Tool(
                 name="Intermediate Answer",
-                description="Search Google and return the first result.",
+                description=user_prompt,
                 func=serper_wrapper.run,
             )
         ]
@@ -77,7 +78,7 @@ class Task_Execution:
         Execute model with image and prompt.
         """
         image = data_processing.image_processing(inputs)["image"]
-        multi_model = llm_connection.connect_mulimodel_ollama()
+        multi_model = llm_connection.connect_multimodel_ollama()
         multi_model.bind(images=image)
         msg = multi_model.invoke(
             [

@@ -7,7 +7,7 @@ class AI_Approaches:
         # Initialize the Task Execution class instance
         self.task_execution = Task_Execution()
 
-    def automate_browsing(self, search_query: str):
+    def automate_browsing(self, search_query: str, prompt: str):
         """
         Automate the browsing process for a specific search query.
 
@@ -16,7 +16,7 @@ class AI_Approaches:
         """
         # search_query = "What is happening with Arvind Kejriwal today?"
         logger.info(f"Automate Browsing with query {search_query}...")
-        response = self.task_execution.execute_automate_browsing(search_query)
+        response = self.task_execution.execute_automate_browsing(search_query, user_prompt=prompt)
         return response['output']
 
     def interview_bot(self):
