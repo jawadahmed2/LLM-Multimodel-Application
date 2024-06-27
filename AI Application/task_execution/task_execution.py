@@ -5,8 +5,8 @@ from data_preparation.prompt_template import Prompt_Template
 from .rag_chats import GraphState, RagProcess
 from .graph_network import create_graph, colors2Community, display_graph
 from langchain_community.utilities import GoogleSerperAPIWrapper
+from langchain_community.utilities import WikipediaAPIWrapper
 from langchain.agents import AgentExecutor, create_react_agent, Tool
-from crewai import Crew, Process
 from langchain.chains import TransformChain
 from langchain_core.runnables import chain
 from langchain_core.runnables import RunnableParallel, RunnablePassthrough
@@ -44,32 +44,24 @@ class Task_Execution:
         print("Executing automated browsing...")
         prompt = data_generation.get_react_prompting()
         serper_wrapper = GoogleSerperAPIWrapper()
+        wikipedia_wrapper = WikipediaAPIWrapper()
         tools = [
             Tool(
                 name="Intermediate Answer",
                 description=user_prompt,
                 func=serper_wrapper.run,
-            )
+            ),
+            Tool(
+                name="Final Answer",
+                description=user_prompt,
+                func=wikipedia_wrapper.run,
+            ),
         ]
         agent = create_react_agent(self.chat_ollama, tools, prompt)
         agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False)
         output = agent_executor.invoke({"input": search_query})
         return output
 
-    def execute_crewai(self):
-        """
-        Execute CrewAI task.
-        """
-        print("Executing CrewAI...")
-        agent1, agent2, agent3, agent4 = prompt_template.crewai_template()
-        crew = Crew(
-            agents=[agent1.agent, agent2.agent, agent3.agent, agent4.agent],
-            tasks=[agent1.task, agent2.task, agent3.task, agent4.task],
-            llm=self.ollama,
-            process=Process.sequential,
-            verbose=True,
-        )
-        return crew.kickoff()
 
     @staticmethod
     @chain

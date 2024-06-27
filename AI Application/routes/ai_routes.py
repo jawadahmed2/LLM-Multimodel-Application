@@ -34,26 +34,6 @@ async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
         logger.error(f"Error in browsing automation: {e}")
         raise HTTPException(status_code=500, detail="Error in browsing automation")
 
-class CrewAI(BaseModel):
-    pass
-
-@ai_router.post("/ai/crewai", tags=["AI Route"])
-async def ai_crewai(crewai: CrewAI):
-    """
-    Endpoint to execute the CrewAI task.
-
-    Returns:
-    - JSON response containing the response from the CrewAI execution.
-    - If any exception occurs during CrewAI execution, returns an error response with status code 500.
-    """
-    try:
-        response = ml_models["crewai"]()
-        return {"response": response}
-    except Exception as e:
-        logger.error(f"Error in CrewAI execution: {e}")
-        raise HTTPException(status_code=500, detail="Error in CrewAI execution")
-
-
 class ImageInformation(BaseModel):
     image_path: str
 

@@ -30,16 +30,6 @@ class AI_Approaches:
         iface = bot.gradio_interface()
         return iface.launch(share=True)
 
-    def crewai(self):
-        """
-        Execute the CrewAI task.
-
-        Returns:
-            response (str): The response from the CrewAI execution.
-        """
-        logger.info("Execute CrewAI Task...")
-        response = self.task_execution.execute_crewai()
-        return response
 
     def get_image_information(self, image_path: str):
         """

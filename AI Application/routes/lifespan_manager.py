@@ -17,7 +17,6 @@ async def models_lifespan(app: FastAPI) -> AsyncIterator[State]:
     logger.info("Starting up and loading ML models...")
     # Load the ML models
     ml_models["automate_browsing"] = select_ai_approach.automate_browsing
-    ml_models["crewai"] = select_ai_approach.crewai
     ml_models["get_image_information"] =select_ai_approach.get_image_information
     ml_models["get_instructions_training_data"] = select_ai_approach.get_instructions_training_data
     ml_models["generate_knowledge_graph"] = select_ai_approach.generate_knowledge_graph

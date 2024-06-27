@@ -39,50 +39,6 @@ class Data_Processing:
 
         return doc_splits
 
-    # Function for processing each frame and saving to video
-    def process_frames(self, input_directory="data/crewai_input", fps=25.0, output_directory="data/crewai_output"):
-        """
-        Process frames and save them as a video.
-        """
-        images = [f[0] for f in os.scandir(input_directory) if not f.is_dir()]
-        total = len(images)
-
-        # Determining frame rate from argument
-        if isinstance(fps, int):
-            fps = fps
-        else:
-            @future.wrap_future
-            def delay(sec):
-                return sec
-
-            delay_time = delay(1 / fps)
-
-        out = output(output_directory + "/output.mp4", codec="libx264")
-
-        for i, image in enumerate(images):
-            start_time = time.time()
-            frame = data_generation.read_image_and_convert_to_frame(os.path.join(input_directory, image))
-            out.video.new_frame(frame)
-
-            if not (i % 50 == 0):
-                continue
-
-            percentage = round((i / total * 100), 2)
-            tqdm.write(
-                f"\rProcessing frame {percentage}% ({i + 1}/{total})"
-            )
-
-            if isinstance(fps, int):
-                time.sleep(1 / fps)
-            else:
-                time.sleep(delay_time.seconds)
-
-            print("\r" + "=" * 30)
-
-        out.run()
-        logger.info("\nVideo processing completed!")
-
-
     def plt_img_base64(self, img_base64):
         """
         Display base64 encoded string as image.

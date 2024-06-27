@@ -57,9 +57,6 @@ AI Application
 │ ├── HW_usage.py
 ├── data_preparation
 │ ├── data
-│ │ ├── crewai_input
-│ │ ├── crewai_output
-│ │ ├── crewai_result
 │ │ ├── images
 │ │ │ └── image.jpg
 │ │ ├── KGraph_data
