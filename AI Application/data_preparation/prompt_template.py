@@ -26,15 +26,13 @@ class Prompt_Template:
         return CUSTOM_QUESTION_PROMPT
 
 
-    def get_image_info_prompt(self):
+    def get_image_info_prompt(self, user_prompt):
         """
         Prompt for image information.
         """
-        vision_prompt = """
+        vision_prompt = f"""
                         Given the image, provide the following information:
-                        - A count of how many people are in the image
-                        - A list of the main objects present in the image
-                        - A description of the image
+                        {user_prompt}
                         """
 
         return vision_prompt

@@ -1,4 +1,4 @@
-from fastapi import APIRouter, HTTPException, File, UploadFile, Form
+from fastapi import APIRouter, HTTPException, File, UploadFile, Form, Depends
 from loguru import logger
 from pydantic import BaseModel, Field
 from .lifespan_manager import ml_models
@@ -35,10 +35,11 @@ async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
         raise HTTPException(status_code=500, detail="Error in browsing automation")
 
 class ImageInformation(BaseModel):
-    image_path: str
+    prompt: str = Field(..., description="Prompt for image information.")
+    file: UploadFile = File(...)
 
 @ai_router.post("/ai/get_image_information", tags=["AI Route"])
-async def ai_get_image_information(file: UploadFile = File(...)):
+async def ai_get_image_information(image_info: ImageInformation = Depends()):
     """
     Endpoint to get information about a specific image.
 
@@ -51,12 +52,12 @@ async def ai_get_image_information(file: UploadFile = File(...)):
     """
     try:
         # Save the uploaded file to a temporary location
-        file_location = f"data_preparation/data/images/{file.filename}"
+        file_location = f"data_preparation/data/images/{image_info.file.filename}"
         with open(file_location, "wb+") as file_object:
-            file_object.write(file.file.read())
+            file_object.write(image_info.file.file.read())
 
-        # Pass the file path to the AI approach
-        response = ml_models["get_image_information"](file_location)
+        # Pass the file path to the AI model for image information retrieval
+        response = ml_models["get_image_information"](file_location, image_info.prompt)
         return {"response": response}
     except Exception as e:
         logger.error(f"Error in image information retrieval: {e}")

@@ -19,6 +19,7 @@ import pandas as pd
 import numpy as np
 import json
 import os
+from loguru import logger
 
 llm_connection = LLMConnection()
 data_generation = Data_Generation()
@@ -41,7 +42,6 @@ class Task_Execution:
         """
         Execute automated browsing task using React model.
         """
-        print("Executing automated browsing...")
         prompt = data_generation.get_react_prompting()
         serper_wrapper = GoogleSerperAPIWrapper()
         wikipedia_wrapper = WikipediaAPIWrapper()
@@ -69,6 +69,7 @@ class Task_Execution:
         """
         Execute model with image and prompt.
         """
+        logger.info(f"Image Processing...")
         image = data_processing.image_processing(inputs)["image"]
         multi_model = llm_connection.connect_multimodel_ollama()
         multi_model.bind(images=image)
@@ -80,11 +81,10 @@ class Task_Execution:
         )
         return msg
 
-    def get_image_informations(self, image_path: str) -> dict:
+    def get_image_informations(self, image_path: str, user_prompt) -> dict:
         """
         Retrieve information about an image.
         """
-        print("Getting image information...")
         load_image_chain = TransformChain(
         input_variables=['image_path'],
         output_variables=['image'],
@@ -92,8 +92,7 @@ class Task_Execution:
         )
         image_model = self.image_model
         vision_chain = load_image_chain | image_model
-        output = vision_chain.invoke({'image_path': f'{image_path}', 'prompt': prompt_template.get_image_info_prompt()})
-        print('Input Prompt:', prompt_template.get_image_info_prompt())
+        output = vision_chain.invoke({'image_path': f'{image_path}', 'prompt': prompt_template.get_image_info_prompt(user_prompt)})
         return output
 
     def format_docs(self, docs):

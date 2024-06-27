@@ -31,7 +31,7 @@ class AI_Approaches:
         return iface.launch(share=True)
 
 
-    def get_image_information(self, image_path: str):
+    def get_image_information(self, image_path: str, user_prompt: str):
         """
         Get information about a specific image.
 
@@ -40,7 +40,7 @@ class AI_Approaches:
         """
         # image_path = "data_preparation/data/images/image.jpg"
         logger.info(f"Get Image Information for image {image_path}...")
-        response = self.task_execution.get_image_informations(image_path)
+        response = self.task_execution.get_image_informations(image_path, user_prompt)
         return response
 
     def get_instructions_training_data(self):

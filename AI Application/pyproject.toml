@@ -23,6 +23,8 @@ opencv-python = "4.9.0.80"
 crewai = "0.28.8"
 langgraph = "0.0.47"
 langchainhub = "0.1.15"
+wikipedia = "1.4.0"
+
 
 [build-system]
 requires = ["poetry-core"]

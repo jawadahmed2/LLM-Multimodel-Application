@@ -39,18 +39,6 @@ class Data_Processing:
 
         return doc_splits
 
-    def plt_img_base64(self, img_base64):
-        """
-        Display base64 encoded string as image.
-
-        :param img_base64: Base64 string
-        """
-        # Create an HTML img tag with the base64 string as the source
-        image_html = f'<img src="data:image/jpeg;base64,{img_base64}" />'
-        # Display the image by rendering the HTML
-        logger.info(f"Displaying image: {image_html}")
-
-
     def image_processing(self, inputs: dict) -> dict:
         """
         Load image from file and encode it as base64.
@@ -58,7 +46,6 @@ class Data_Processing:
         image_path = inputs["image_path"]
         pil_image = Image.open(image_path)
         image_base64 = data_generation.generate_base64_image(pil_image)
-        self.plt_img_base64(image_base64)
         return {"image": image_base64}
 
 
