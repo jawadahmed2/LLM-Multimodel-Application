@@ -2,7 +2,7 @@ from client.llm_connection import LLMConnection
 from langchain.chains import ConversationalRetrievalChain
 from langchain.memory import ConversationBufferMemory
 import gradio as gr
-from langchain.vectorstores import Chroma
+from langchain_community.vectorstores import Chroma
 from data_preparation import prompt_template
 from langchain_community import embeddings
 

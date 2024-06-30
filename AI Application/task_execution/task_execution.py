@@ -38,29 +38,30 @@ class Task_Execution:
         self.chat_ollama = llm_connection.connect_chat_ollama()
         self.ollama_client, self.client_model = llm_connection.ollama_client()
 
-    def execute_automate_browsing(self, search_query, user_prompt):
+    def execute_automate_browsing(self, search_query):
         """
         Execute automated browsing task using React model.
         """
+        llm_prompt = self.chat_ollama.invoke(f"Generate a single sentence prompt that will start with Search Google or Wikipedia according to the search query {search_query}")
         prompt = data_generation.get_react_prompting()
         serper_wrapper = GoogleSerperAPIWrapper()
         wikipedia_wrapper = WikipediaAPIWrapper()
         tools = [
             Tool(
                 name="Intermediate Answer",
-                description=user_prompt,
+                description=llm_prompt.content,
                 func=serper_wrapper.run,
             ),
             Tool(
                 name="Final Answer",
-                description=user_prompt,
+                description=llm_prompt.content,
                 func=wikipedia_wrapper.run,
             ),
         ]
         agent = create_react_agent(self.chat_ollama, tools, prompt)
         agent_executor = AgentExecutor(agent=agent, tools=tools, verbose=False)
         output = agent_executor.invoke({"input": search_query})
-        return output
+        return output, llm_prompt.content
 
 
     @staticmethod

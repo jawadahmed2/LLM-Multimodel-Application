@@ -9,7 +9,7 @@ ai_router = APIRouter()
 
 
 class AutomateBrowsing(BaseModel):
-    instruction: str = Field("Search Google and return the first result.", description="Instruction for the browsing automation.")
+    # instruction: str = Field("Search Google and return the first result.", description="Instruction for the browsing automation.")
     query: str = Field(..., description="Query to search on Google.")
 
 @ai_router.post("/ai/automate_browsing", tags=["AI Route"])
@@ -27,9 +27,8 @@ async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
     """
     try:
         search_query = automate_browsing.query
-        prompt = automate_browsing.instruction
-        response = ml_models["automate_browsing"](search_query, prompt)
-        return {"response": response}
+        response, llm_prompt = ml_models["automate_browsing"](search_query)
+        return {"response": response, "prompt_generated": llm_prompt}
     except Exception as e:
         logger.error(f"Error in browsing automation: {e}")
         raise HTTPException(status_code=500, detail="Error in browsing automation")
