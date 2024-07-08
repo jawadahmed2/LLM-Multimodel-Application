@@ -16,3 +16,5 @@ env/
 # Ignore OS files
 .DS_Store
 Thumbs.db
+
+/gradio_cached_examples
