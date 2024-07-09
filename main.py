@@ -33,4 +33,4 @@ if __name__ == "__main__":
     import uvicorn
 
     # Run the application using Uvicorn server
-    uvicorn.run("main:app", host=config.HOST, port=config.PORT, reload=True)
+    uvicorn.run("main:app", host=config.HOST, port=config.PORT, reload=False)
