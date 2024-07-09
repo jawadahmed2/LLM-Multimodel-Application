@@ -32,6 +32,8 @@ poetry install
 
 ### Run the Application
 
+Note: Make sure to update the .env file in the config directory.
+
 ```sh
 python main.py
 ```
