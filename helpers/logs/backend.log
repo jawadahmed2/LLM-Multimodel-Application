@@ -18493,3 +18493,396 @@ description
 2024-07-09 10:38:55 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
 2024-07-09 10:38:55 | INFO     | app | logging:callHandlers:1762 - Finished server process [53375]
 2024-07-09 10:38:55 | INFO     | app | logging:callHandlers:1762 - Finished server process [53375]
+2024-07-31 09:35:31 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-07-31 09:35:31 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Started server process [4938]
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Started server process [4938]
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-07-31 09:35:31 | INFO     | app | routes.lifespan_manager:models_lifespan:17 - Starting up and loading ML models...
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Uvicorn running on http://localhost:8001 (Press CTRL+C to quit)
+2024-07-31 09:35:31 | INFO     | app | logging:callHandlers:1762 - Uvicorn running on http://localhost:8001 (Press CTRL+C to quit)
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 31 Jul 2024 04:35:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3'), (b'Connection', b'keep-alive'), (b'Server', b'nginx/1.18.0'), (b'Access-Control-Allow-Origin', b'*')])
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 31 Jul 2024 04:35:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3'), (b'Connection', b'keep-alive'), (b'Server', b'nginx/1.18.0'), (b'Access-Control-Allow-Origin', b'*')])
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 31 Jul 2024 04:35:34 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3'), (b'Connection', b'keep-alive'), (b'Server', b'nginx/1.18.0'), (b'Access-Control-Allow-Origin', b'*')])
+2024-07-31 09:35:34 | INFO     | app | logging:callHandlers:1762 - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-07-31 09:35:34 | INFO     | app | logging:callHandlers:1762 - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.started request=<Request [b'GET']>
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - response_closed.started
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - response_closed.started
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - response_closed.started
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - response_closed.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - response_closed.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - response_closed.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - close.started
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - close.started
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - close.started
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - close.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - close.complete
+2024-07-31 09:35:34 | DEBUG    | app | logging:callHandlers:1762 - close.complete
+2024-07-31 09:35:46 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:33378 - "GET /docs HTTP/1.1" 200
+2024-07-31 09:35:46 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:33378 - "GET /openapi.json HTTP/1.1" 200
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_begin with no data
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_field with data[42:61]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_value with data[63:121]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_end with no data
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_field with data[123:135]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_value with data[137:147]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_end with no data
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_headers_finished with no data
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[151:16384]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:42289]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[42290:81920]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:84892]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[84893:102928]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[102929:142131]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[142132:167092]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[167093:253945]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[253946:256000]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:180724]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[180725:256000]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:49770]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[49771:58950]
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_end with no data
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Calling on_end with no data
+2024-07-31 09:36:20 | INFO     | app | ai_interactions.ai_approaches:get_image_information:42 - Get Image Information for image data_preparation/data/images/IMG_20240218_144251.jpg...
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:36:20 | INFO     | app | task_execution.task_execution:image_model:73 - Image Processing...
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Starting new HTTP connection (1): localhost:11434
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Starting new HTTP connection (1): localhost:11434
+2024-07-31 09:36:20 | DEBUG    | app | logging:callHandlers:1762 - Starting new HTTP connection (1): localhost:11434
+2024-07-31 09:36:28 | DEBUG    | app | logging:callHandlers:1762 - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2024-07-31 09:36:28 | DEBUG    | app | logging:callHandlers:1762 - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2024-07-31 09:36:28 | DEBUG    | app | logging:callHandlers:1762 - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2024-07-31 09:36:37 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:45976 - "POST /ai/get_image_information?prompt=what%20is%20in%20the%20image HTTP/1.1" 200
+2024-07-31 09:36:37 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-07-31 09:36:37 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-07-31 09:36:37 | INFO     | app | logging:callHandlers:1762 - Finished server process [4938]
+2024-07-31 09:36:37 | INFO     | app | logging:callHandlers:1762 - Finished server process [4938]
+2024-07-31 09:36:37 | ERROR    | app | logging:callHandlers:1762 - Traceback (most recent call last):
+  File "/home/jawad/anaconda3/envs/gpu/lib/python3.12/site-packages/starlette/routing.py", line 686, in lifespan
+    await receive()
+  File "/home/jawad/anaconda3/envs/gpu/lib/python3.12/site-packages/uvicorn/lifespan/on.py", line 137, in receive
+    return await self.receive_queue.get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jawad/anaconda3/envs/gpu/lib/python3.12/asyncio/queues.py", line 158, in get
+    await getter
+asyncio.exceptions.CancelledError
+
+2024-07-31 09:36:37 | ERROR    | app | logging:callHandlers:1762 - Traceback (most recent call last):
+  File "/home/jawad/anaconda3/envs/gpu/lib/python3.12/site-packages/starlette/routing.py", line 686, in lifespan
+    await receive()
+  File "/home/jawad/anaconda3/envs/gpu/lib/python3.12/site-packages/uvicorn/lifespan/on.py", line 137, in receive
+    return await self.receive_queue.get()
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/jawad/anaconda3/envs/gpu/lib/python3.12/asyncio/queues.py", line 158, in get
+    await getter
+asyncio.exceptions.CancelledError
+
+2024-07-31 09:38:19 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-07-31 09:38:19 | INFO     | app | config.HW_usage:set_hardware_usage:8 - GPU is available and will be used.
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Started server process [7581]
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Started server process [7581]
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Waiting for application startup.
+2024-07-31 09:38:19 | INFO     | app | routes.lifespan_manager:models_lifespan:17 - Starting up and loading ML models...
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Application startup complete.
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Uvicorn running on http://localhost:8001 (Press CTRL+C to quit)
+2024-07-31 09:38:19 | INFO     | app | logging:callHandlers:1762 - Uvicorn running on http://localhost:8001 (Press CTRL+C to quit)
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x70dbbf0bc470>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x70dbbf0bc470>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - start_tls.complete return_value=<httpcore._backends.sync.SyncStream object at 0x70dbbf0bc470>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.complete
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.complete
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_headers.complete
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.complete
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.complete
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - send_request_body.complete
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.started request=<Request [b'GET']>
+2024-07-31 09:38:20 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.started request=<Request [b'GET']>
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 31 Jul 2024 04:38:20 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3'), (b'Connection', b'keep-alive'), (b'Server', b'nginx/1.18.0'), (b'Access-Control-Allow-Origin', b'*')])
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 31 Jul 2024 04:38:20 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3'), (b'Connection', b'keep-alive'), (b'Server', b'nginx/1.18.0'), (b'Access-Control-Allow-Origin', b'*')])
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_headers.complete return_value=(b'HTTP/1.1', 200, b'OK', [(b'Date', b'Wed, 31 Jul 2024 04:38:20 GMT'), (b'Content-Type', b'application/json'), (b'Content-Length', b'3'), (b'Connection', b'keep-alive'), (b'Server', b'nginx/1.18.0'), (b'Access-Control-Allow-Origin', b'*')])
+2024-07-31 09:38:21 | INFO     | app | logging:callHandlers:1762 - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-07-31 09:38:21 | INFO     | app | logging:callHandlers:1762 - HTTP Request: GET https://api.gradio.app/gradio-messaging/en "HTTP/1.1 200 OK"
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.started request=<Request [b'GET']>
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.started request=<Request [b'GET']>
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.started request=<Request [b'GET']>
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - receive_response_body.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - response_closed.started
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - response_closed.started
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - response_closed.started
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - response_closed.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - response_closed.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - response_closed.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - close.started
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - close.started
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - close.started
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - close.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - close.complete
+2024-07-31 09:38:21 | DEBUG    | app | logging:callHandlers:1762 - close.complete
+2024-07-31 09:38:23 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:47614 - "GET /docs HTTP/1.1" 200
+2024-07-31 09:38:23 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:47614 - "GET /openapi.json HTTP/1.1" 200
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_begin with no data
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_field with data[42:61]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_value with data[63:121]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_end with no data
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_field with data[123:135]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_value with data[137:147]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_header_end with no data
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_headers_finished with no data
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[151:81920]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:76618]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[76619:90219]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[90220:103156]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:2]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[103158:119312]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[119313:193944]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[193945:256000]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:7996]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[7997:15073]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[15074:53830]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[53831:118701]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[118702:123118]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[123119:202347]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[202348:256000]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:75310]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[0:1]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_data with data[75311:75334]
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_part_end with no data
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Calling on_end with no data
+2024-07-31 09:38:39 | INFO     | app | ai_interactions.ai_approaches:get_image_information:42 - Get Image Information for image data_preparation/data/images/IMG_20240218_144251.jpg...
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:38:39 | INFO     | app | task_execution.task_execution:image_model:73 - Image Processing...
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageWidth (256) - type: long (4) - value: b'\x00\x0c\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ImageLength (257) - type: long (4) - value: b'\xf0\x0f\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Make (271) - type: string (2) Tag Location: 46 - Data Location: 182 - value: b'Xiaomi\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Model (272) - type: string (2) Tag Location: 58 - Data Location: 190 - value: b'23021RAAEG\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Orientation (274) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: XResolution (282) - type: rational (5) Tag Location: 82 - Data Location: 202 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YResolution (283) - type: rational (5) Tag Location: 94 - Data Location: 210 - value: b'H\x00\x00\x00\x01\x00\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ResolutionUnit (296) - type: short (3) - value: b'\x02\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: Software (305) - type: string (2) Tag Location: 118 - Data Location: 218 - value: b'Shotwell 0.30.14\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: YCbCrPositioning (531) - type: short (3) - value: b'\x01\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: ExifIFD (34665) - type: long (4) - value: b'~\x01\x00\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (34970) - type: byte (1) - value: b'\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39321) - type: string (2) Tag Location: 166 - Data Location: 236 - value: <table: 131 bytes>
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - tag: unknown (39424) - type: string (2) Tag Location: 178 - Data Location: 368 - value: b'Redmi Note 12\x00'
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Starting new HTTP connection (1): localhost:11434
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Starting new HTTP connection (1): localhost:11434
+2024-07-31 09:38:39 | DEBUG    | app | logging:callHandlers:1762 - Starting new HTTP connection (1): localhost:11434
+2024-07-31 09:38:40 | DEBUG    | app | logging:callHandlers:1762 - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2024-07-31 09:38:40 | DEBUG    | app | logging:callHandlers:1762 - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2024-07-31 09:38:40 | DEBUG    | app | logging:callHandlers:1762 - http://localhost:11434 "POST /api/generate HTTP/1.1" 200 None
+2024-07-31 09:38:41 | INFO     | app | logging:callHandlers:1762 - 127.0.0.1:47620 - "POST /ai/get_image_information HTTP/1.1" 200
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Shutting down
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Waiting for application shutdown.
+2024-07-31 09:46:28 | INFO     | app | routes.lifespan_manager:models_lifespan:26 - Shutting down and releasing ML models...
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Application shutdown complete.
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Finished server process [7581]
+2024-07-31 09:46:28 | INFO     | app | logging:callHandlers:1762 - Finished server process [7581]

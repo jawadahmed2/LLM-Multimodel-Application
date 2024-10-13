@@ -1,3 +1,4 @@
+from typing import Optional
 from fastapi import APIRouter, HTTPException, File, UploadFile, Form, Depends
 from loguru import logger
 from pydantic import BaseModel, Field
@@ -34,8 +35,8 @@ async def ai_automate_browsing(automate_browsing: AutomateBrowsing):
         raise HTTPException(status_code=500, detail="Error in browsing automation")
 
 class ImageInformation(BaseModel):
-    prompt: str = Field(..., description="Prompt for image information.")
-    file: UploadFile = File(...)
+    prompt: Optional[str] = Field(None, description="Prompt for image information.")
+    file: UploadFile = File(None)
 
 @ai_router.post("/ai/get_image_information", tags=["AI Route"])
 async def ai_get_image_information(image_info: ImageInformation = Depends()):
